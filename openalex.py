@@ -5,7 +5,7 @@ import time
 EMAIL = "haydar.yalcin@gmail.com"
 BASE_URL = "https://api.openalex.org/works"
 PER_PAGE = 200
-MAX_RECORDS = 10000
+MAX_RECORDS = 300
 
 QUERY = """
 ("small and medium enterprise" OR SME OR "small business")

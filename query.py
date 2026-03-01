@@ -99,6 +99,7 @@ Article:
 
     while attempt < MAX_RETRY:
         response = query_ollama(prompt, timeout=TIMEOUT_SECONDS)
+        print(response)
 
         if response == "failed":
             attempt += 1
