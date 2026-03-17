@@ -12,8 +12,6 @@
                 .filter-group { display: flex; flex-direction: column; }
                 label { font-weight: 600; margin-bottom: 5px; font-size: 13px; color: #666; }
                 select { padding: 8px 12px; border-radius: 5px; border: 1px solid #ddd; width: 180px; }
-                .btn-export { background-color: #2e7d32; color: white; border: none; padding: 9px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 13px; margin-top: auto; }
-                .btn-export:hover { background-color: #1b5e20; }
                 table { width: 100%; border-collapse: collapse; table-layout: fixed; }
                 th { background-color: #1a73e8; color: white; padding: 12px; border: 1px solid #ddd; font-size: 14px; }
                 td { border: 1px solid #e0e0e0; vertical-align: top; padding: 5px; background: #fafafa; height: 110px; }
@@ -53,9 +51,6 @@
                         <option value='all'>Tüm Durumlar</option>
                         <option value='SEÇMELİ'>SEÇMELİ</option><option value='ZORUNLU'>ZORUNLU</option>
                     </select>
-                </div>
-                <div class="filter-group"><label>&nbsp;</label>
-                    <button class="btn-export" onclick="downloadICS()">📥 Seçili Programı İndir (.ics)</button>
                 </div>
             </div>
 
@@ -1678,37 +1673,6 @@
                 const details = `Öğretim Görevlisi: ${d.teacher}\nSınıf: ${d.classInfo}\nDurum: ${d.status}`;
                 const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(fullTitle)}&details=${encodeURIComponent(details)}&location=${encodeURIComponent(d.room)}&dates=${start}/${end}&recur=RRULE:FREQ=WEEKLY;UNTIL=20260615T235959Z`;
                 window.open(url, '_blank');
-            }
-
-            function downloadICS() {
-                const visible = Array.from(document.querySelectorAll(".lesson-card")).filter(c => c.style.display !== "none");
-                if(visible.length === 0){ alert("⚠️ Önce filtreleme yapın."); return; }
-
-                let ics = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Ege//TR\nCALSCALE:GREGORIAN\nMETHOD:PUBLISH\n";
-                visible.forEach(card => {
-                    const title = card.querySelector(".lesson-name").innerText;
-                    const hoca = card.dataset.teacher;
-                    const classInfo = card.dataset.sinif;
-                    const status = card.dataset.status;
-                    const room = card.dataset.room;
-                    const day = card.dataset.day;
-                    let h = card.dataset.hour.split('-')[0].trim().replace(":","");
-                    if(h.length === 3) h = "0" + h;
-                    ics += "BEGIN:VEVENT\n";
-                    ics += `SUMMARY:${title} [${classInfo}]\n`;
-                    ics += `LOCATION:${room}\n`;
-                    ics += `DESCRIPTION:Öğretim Görevlisi: ${hoca}\nSınıf: ${classInfo}\nDurum: ${status}\n`;
-                    ics += `DTSTART:${gunMap[day]}T${h}00\n`;
-                    ics += `DTEND:${gunMap[day]}T${(parseInt(h.substring(0,2))+1).toString().padStart(2,'0')}${h.substring(2)}00\n`;
-                    ics += "RRULE:FREQ=WEEKLY;UNTIL=20260615T235959Z\n";
-                    ics += "END:VEVENT\n";
-                });
-                ics += "END:VCALENDAR";
-                const blob = new Blob([ics.replace(/\\n/g, "\n")], { type: 'text/calendar;charset=utf-8' });
-                const a = document.createElement("a");
-                a.href = window.URL.createObjectURL(blob);
-                a.download = "ders_programi.ics";
-                a.click();
             }
         </script>
         </body>
