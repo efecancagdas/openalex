@@ -13,7 +13,7 @@ THEORY_FILE = "Core_Management_Theories.xlsx"
 OUTPUT_FILE = "openalex_cleaned_theory.csv"
 
 OLLAMA_PATH = r"C:\Users\EFE\AppData\Local\Programs\Ollama\ollama.exe"
-MODEL_NAME = "gemma3:12b"
+MODEL_NAME = "3:12b"
 
 PART_SIZE = 200
 TIMEOUT_SECONDS = 60

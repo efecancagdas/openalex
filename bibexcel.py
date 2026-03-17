@@ -2,7 +2,16 @@ import pandas as pd
 import os
 
 # CSV dosyasını oku
-df = pd.read_csv('openalex_cleaned_theory.csv')
+csv_file = 'openalex_cleaned_theory_concepts.csv'
+if not os.path.exists(csv_file):
+    raise FileNotFoundError(f"{csv_file} bulunamadı! Lütfen dosyanın yolunu kontrol edin.")
+df = pd.read_csv(csv_file)
+
+# Beklenen sütunların var olup olmadığını kontrol et
+required_columns = ['Core_Theory_Group', 'title', 'abstract', 'publication_year', 'concepts']
+missing_columns = [col for col in required_columns if col not in df.columns]
+if missing_columns:
+    raise ValueError(f"CSV dosyasında eksik sütunlar: {', '.join(missing_columns)}")
 
 # Output klasörü oluştur
 output_folder = 'theory_docs'
@@ -25,14 +34,17 @@ for theory_group, group_df in df.groupby('Core_Theory_Group'):
                 f'TI- {str(row["title"]).upper()}|',
                 f'AB- {str(row["abstract"]).upper()}|',
                 f'DE- {str(row["concepts"]).upper()}|',
+                f'PY- {str(row["publication_year"]).upper()}|',  # Publication Year eklendi
                 ''
             ]
             f.write('\n'.join(lines) + '\n')
 
             # merged dosya için de ekle
-            merged_lines.extend(lines + [''])
+            merged_lines.extend(lines)
 
 # Merged dosyayı oluştur
 merged_path = os.path.join(output_folder, 'merged.doc')
 with open(merged_path, 'w', encoding='utf-8') as f:
     f.write('\n'.join(merged_lines))
+
+print("İşlem tamamlandı! Dosyalar başarıyla oluşturuldu.")

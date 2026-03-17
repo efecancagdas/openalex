@@ -1,0 +1,1491 @@
+
+        <!DOCTYPE html>
+        <html lang="tr">
+        <head>
+            <meta charset="UTF-8">
+            <title>📅 Haftalık Ders Programı</title>
+            <style>
+                body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
+                .container { max-width: 1400px; margin: auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+                h1 { text-align: center; color: #1a73e8; margin-bottom: 20px; }
+                .filters { display: flex; gap: 15px; justify-content: center; background: #fff; padding: 20px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e0e0e0; position: sticky; top: 10px; z-index: 1000; }
+                .filter-group { display: flex; flex-direction: column; }
+                label { font-weight: 600; margin-bottom: 5px; font-size: 13px; color: #666; }
+                select { padding: 8px 12px; border-radius: 5px; border: 1px solid #ddd; min-width: 180px; }
+                table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+                th { background-color: #1a73e8; color: white; padding: 12px; border: 1px solid #ddd; font-size: 14px; }
+                td { border: 1px solid #e0e0e0; vertical-align: top; padding: 5px; background: #fafafa; height: 110px; }
+                .time-cell { background: #f8f9fa; font-weight: bold; text-align: center; width: 80px; color: #333; vertical-align: middle; height: auto; font-size: 13px; }
+                .lesson-card { background: #ffffff; border-left: 4px solid #1a73e8; margin-bottom: 8px; padding: 8px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); font-size: 12px; }
+                .lesson-name { font-weight: bold; color: #1a73e8; display: block; margin-bottom: 4px; border-bottom: 1px solid #eee; padding-bottom: 2px; }
+                .teacher-name { color: #2e7d32; font-weight: 600; font-style: italic; }
+                .durum-info { color: #666; font-size: 11px; display: block; margin-top: 2px; font-weight: 500; }
+                .class-badge { display: inline-block; background: #e8f0fe; color: #1967d2; padding: 2px 6px; border-radius: 10px; font-size: 10px; margin-top: 4px; font-weight: bold; }
+            </style>
+        </head>
+        <body>
+        <div class="container">
+            <h1>📅 Haftalık Ders Programı</h1>
+            <div class="filters">
+                <div class="filter-group"><label>Gün:</label>
+                    <select id="gunSelect" onchange="filterSchedule()">
+                        <option value='all'>Tüm Günler</option>
+                        <option value='PAZARTESI'>PAZARTESI</option><option value='SALI'>SALI</option><option value='ÇARŞAMBA'>ÇARŞAMBA</option><option value='PERŞEMBE'>PERŞEMBE</option><option value='CUMA'>CUMA</option>
+                    </select>
+                </div>
+                <div class="filter-group"><label>Sınıf:</label>
+                    <select id="sinifSelect" onchange="filterSchedule()">
+                        <option value='all'>Tüm Sınıflar</option>
+                        <option value='1. SINIF'>1. SINIF</option><option value='2. SINIF'>2. SINIF</option><option value='3. SINIF'>3. SINIF</option><option value='4. SINIF'>4. SINIF</option><option value='KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS'>KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS</option><option value='MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS'>MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS</option><option value='PAZARLAMA DOKTORA'>PAZARLAMA DOKTORA</option><option value='PAZARLAMA TEZLİ YÜKSEK LİSANS'>PAZARLAMA TEZLİ YÜKSEK LİSANS</option><option value='PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS'>PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</option><option value='UZAKTAN LOJİSTİK YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS'>UZAKTAN LOJİSTİK YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</option><option value='UZAKTAN ÖĞRETİM İŞLETME TEZSİZ E- YÜKSEK LİSANS'>UZAKTAN ÖĞRETİM İŞLETME TEZSİZ E- YÜKSEK LİSANS</option><option value='YÖNETİM BİLİMİ VE ORGANİZASYON DOKTORA'>YÖNETİM BİLİMİ VE ORGANİZASYON DOKTORA</option><option value='YÖNETİM VE ORGANİZASYON TEZLİ YÜKSEK LİSANS'>YÖNETİM VE ORGANİZASYON TEZLİ YÜKSEK LİSANS</option><option value='ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER DOKTORA'>ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER DOKTORA</option><option value='ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER TEZLİ YÜKSEK LİSANS'>ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER TEZLİ YÜKSEK LİSANS</option><option value='ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS'>ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</option><option value='İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS'>İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS</option><option value='İŞLETME DOKTORA'>İŞLETME DOKTORA</option><option value='İŞLETME TEZLİ YÜKSEK LİSANS'>İŞLETME TEZLİ YÜKSEK LİSANS</option><option value='İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS'>İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS</option>
+                    </select>
+                </div>
+                <div class="filter-group"><label>Öğretim Üyesi:</label>
+                    <select id="teacherSelect" onchange="filterSchedule()">
+                        <option value='all'>Tüm Öğretim Üyeleri</option>
+                        <option value='ARAŞ. GÖR. DR. BEGÜM KANAT TİRYAKİ'>ARAŞ. GÖR. DR. BEGÜM KANAT TİRYAKİ</option><option value='ARAŞ. GÖR. DR. ÖZGÜR BABACAN'>ARAŞ. GÖR. DR. ÖZGÜR BABACAN</option><option value='DOÇ. DR. AYDIN KOÇAK'>DOÇ. DR. AYDIN KOÇAK</option><option value='DOÇ. DR. AYŞEGÜL ÇAKSU GÜLER'>DOÇ. DR. AYŞEGÜL ÇAKSU GÜLER</option><option value='DOÇ. DR. BURCU ŞENTÜRK YILDIZ'>DOÇ. DR. BURCU ŞENTÜRK YILDIZ</option><option value='DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN'>DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN</option><option value='DOÇ. DR. FATMA TEKİN'>DOÇ. DR. FATMA TEKİN</option><option value='DOÇ. DR. SEMA AYDIN'>DOÇ. DR. SEMA AYDIN</option><option value='DOÇ. DR. U. GÖKAY ÇİÇEKLİ'>DOÇ. DR. U. GÖKAY ÇİÇEKLİ</option><option value='DOÇ. DR. İNANÇ KABASAKAL'>DOÇ. DR. İNANÇ KABASAKAL</option><option value='DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU'>DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU</option><option value='DR. ÖĞR. ÜYESI ESIN GÜRBÜZ'>DR. ÖĞR. ÜYESI ESIN GÜRBÜZ</option><option value='DR. ÖĞR. ÜYESI HAKAN ERKAL'>DR. ÖĞR. ÜYESI HAKAN ERKAL</option><option value='DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI'>DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI</option><option value='DR. ÖĞR. ÜYESİ MİRAY BAYBARS'>DR. ÖĞR. ÜYESİ MİRAY BAYBARS</option><option value='PROF. DR. AYKAN CANDEMİR'>PROF. DR. AYKAN CANDEMİR</option><option value='PROF. DR. AYLA ÖZHAN DEDEOĞLU'>PROF. DR. AYLA ÖZHAN DEDEOĞLU</option><option value='PROF. DR. BURAK ÇAPRAZ'>PROF. DR. BURAK ÇAPRAZ</option><option value='PROF. DR. BURCU ARACIOĞLU'>PROF. DR. BURCU ARACIOĞLU</option><option value='PROF. DR. DERYA İLİC'>PROF. DR. DERYA İLİC</option><option value='PROF. DR. DILEK DEMİRHAN'>PROF. DR. DILEK DEMİRHAN</option><option value='PROF. DR. G. NAZAN GÜNAY'>PROF. DR. G. NAZAN GÜNAY</option><option value='PROF. DR. HALUK SOYUER'>PROF. DR. HALUK SOYUER</option><option value='PROF. DR. HAYDAR YALÇIN'>PROF. DR. HAYDAR YALÇIN</option><option value='PROF. DR. KETİ VENTURA'>PROF. DR. KETİ VENTURA</option><option value='PROF. DR. MEHMET KARAÇUKA'>PROF. DR. MEHMET KARAÇUKA</option><option value='PROF. DR. MURAT KOCAMAZ'>PROF. DR. MURAT KOCAMAZ</option><option value='PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ'>PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ</option><option value='PROF. DR. TÜRKER SUSMUŞ'>PROF. DR. TÜRKER SUSMUŞ</option><option value='PROF. DR. İPEK KAZANÇOĞLU'>PROF. DR. İPEK KAZANÇOĞLU</option><option value='ÖĞR. GÖR. DR. M. ALI DURMUŞ'>ÖĞR. GÖR. DR. M. ALI DURMUŞ</option>
+                    </select>
+                </div>
+                <div class="filter-group"><label>Durum:</label>
+                    <select id="statusSelect" onchange="filterSchedule()">
+                        <option value='all'>Tüm Durumlar</option>
+                        <option value='SEÇMELİ'>SEÇMELİ</option><option value='ZORUNLU'>ZORUNLU</option>
+                    </select>
+                </div>
+            </div>
+
+            <table id="scheduleTable">
+                <thead>
+                    <tr><th>Saat</th><th>PAZARTESI</th><th>SALI</th><th>ÇARŞAMBA</th><th>PERŞEMBE</th><th>CUMA</th></tr>
+                </thead>
+                <tbody>
+        <tr><td class='time-cell'>09.00-12.00</td><td>
+                    <div class="lesson-card" data-teacher="DOÇ. DR. AYŞEGÜL ÇAKSU GÜLER" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="1. SINIF">
+                        <span class="lesson-name">MATEMATIK-II </span>
+                        📍 D102<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. AYŞEGÜL ÇAKSU GÜLER</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">1. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. BURCU ŞENTÜRK YILDIZ" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
+                        <span class="lesson-name">YÖNETIM BILIMLERINDE NITEL ARAŞTIRMA</span>
+                        📍 D111<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. BURCU ŞENTÜRK YILDIZ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. BURCU ŞENTÜRK YILDIZ" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="YÖNETİM BİLİMİ VE ORGANİZASYON DOKTORA">
+                        <span class="lesson-name">YÖNETİM BİLİMLERİNDE NİTEL ARAŞTIRMA</span>
+                        📍 D111<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. BURCU ŞENTÜRK YILDIZ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">YÖNETİM BİLİMİ VE ORGANİZASYON DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. SEMA AYDIN" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="2. SINIF">
+                        <span class="lesson-name">TICARET HUKUKU</span>
+                        📍 D104<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. SEMA AYDIN</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">2. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. U. GÖKAY ÇİÇEKLİ" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">KARAR TEORİSİ</span>
+                        📍 D302<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. U. GÖKAY ÇİÇEKLİ</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">PAZARLAMADA TEKNOLOJİ VE YENİLİK YÖNETİMİ</span>
+                        📍 D211<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="PAZARLAMA TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">PAZARLAMADA TEKNOLOJİ VE YENİLİK YÖNETİMİ</span>
+                        📍 D211<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">PAZARLAMA TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. KETİ VENTURA" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="3. SINIF">
+                        <span class="lesson-name">SALES MANAGEMENT</span>
+                        📍 D105<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. KETİ VENTURA</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">3. SINIF</span>
+                    </div>
+                    </td><td>
+                    <div class="lesson-card" data-teacher="DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN" data-day="SALI" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">NİTEL ARAŞTIRMA YÖNTEMLERİ</span>
+                        📍 LAB<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN" data-day="SALI" data-status="SEÇMELİ" data-sinif="PAZARLAMA TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">NİTEL ARAŞTIRMA YÖNTEMLERİ</span>
+                        📍 LAB<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">PAZARLAMA TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. İNANÇ KABASAKAL" data-day="SALI" data-status="ZORUNLU" data-sinif="2. SINIF">
+                        <span class="lesson-name">İSTATISTIK II</span>
+                        📍 D104<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. İNANÇ KABASAKAL</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">2. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. U. GÖKAY ÇİÇEKLİ" data-day="SALI" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
+                        <span class="lesson-name">ÜRETIM YÖNETIMI UYGULAMALARI</span>
+                        📍 D302<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. U. GÖKAY ÇİÇEKLİ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. U. GÖKAY ÇİÇEKLİ" data-day="SALI" data-status="SEÇMELİ" data-sinif="ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER DOKTORA">
+                        <span class="lesson-name">ÜRETİM YÖNETİMİ UYGULAMALARI</span>
+                        📍 D302<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. U. GÖKAY ÇİÇEKLİ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI" data-day="SALI" data-status="ZORUNLU" data-sinif="4. SINIF">
+                        <span class="lesson-name">SERMAYE PIYASASI ANALIZI</span>
+                        📍 D102<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">4. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. BURAK ÇAPRAZ" data-day="SALI" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">STRATEJİK YÖNETİM</span>
+                        📍 D111<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. BURAK ÇAPRAZ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. BURAK ÇAPRAZ" data-day="SALI" data-status="SEÇMELİ" data-sinif="YÖNETİM VE ORGANİZASYON TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">STRATEJİK YÖNETİM</span>
+                        📍 D111<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. BURAK ÇAPRAZ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">YÖNETİM VE ORGANİZASYON TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. DERYA İLİC" data-day="SALI" data-status="ZORUNLU" data-sinif="1. SINIF">
+                        <span class="lesson-name">PRINCIPLES OF MANAGEMENT</span>
+                        📍 D105<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. DERYA İLİC</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">1. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. HALUK SOYUER" data-day="SALI" data-status="ZORUNLU" data-sinif="ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">STRATEJİK ÜRETİM YÖNETİMİ</span>
+                        📍 D211<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. HALUK SOYUER</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ" data-day="SALI" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
+                        <span class="lesson-name">LIDERLIĞIN DOĞASI VE LIDERLIK KURAMLARININ EVRIMI</span>
+                        📍 D301<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ" data-day="SALI" data-status="SEÇMELİ" data-sinif="YÖNETİM BİLİMİ VE ORGANİZASYON DOKTORA">
+                        <span class="lesson-name">LİDERLİĞİN DOĞASI VE LİDERLİK KURAMLARININ EVRİMİ</span>
+                        📍 D301<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">YÖNETİM BİLİMİ VE ORGANİZASYON DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. TÜRKER SUSMUŞ" data-day="SALI" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
+                        <span class="lesson-name">İLERI YÖNETIM MUHASEBESI</span>
+                        📍 D103<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. TÜRKER SUSMUŞ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME DOKTORA</span>
+                    </div>
+                    </td><td>
+                    <div class="lesson-card" data-teacher="DOÇ. DR. BURCU ŞENTÜRK YILDIZ" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="4. SINIF">
+                        <span class="lesson-name">PERFORMANS YÖNETIMI</span>
+                        📍 D103<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. BURCU ŞENTÜRK YILDIZ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">4. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="YÖNETİM VE ORGANİZASYON TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">DEĞİŞEN YÖNETİM ROLLERİ: LİDERLİK KOÇLUK VE MENTORLUK</span>
+                        📍 D111<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">YÖNETİM VE ORGANİZASYON TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. SEMA AYDIN" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">İŞ HUKUKU</span>
+                        📍 D211<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. SEMA AYDIN</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESİ MİRAY BAYBARS" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="4. SINIF">
+                        <span class="lesson-name">RETAILING II</span>
+                        📍 Z17<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESİ MİRAY BAYBARS</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">4. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. BURCU ARACIOĞLU" data-day="ÇARŞAMBA" data-status="ZORUNLU" data-sinif="ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">BİLİMSEL ARAŞTIRMA YÖNTEMLERİ VE ETİK</span>
+                        📍 D302<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. BURCU ARACIOĞLU</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. DILEK DEMİRHAN" data-day="ÇARŞAMBA" data-status="ZORUNLU" data-sinif="3. SINIF">
+                        <span class="lesson-name">FINANCIAL MANAGEMENT II</span>
+                        📍 D104<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. DILEK DEMİRHAN</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">3. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. G. NAZAN GÜNAY" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">BÜTÜNLEŞİK PAZARLAMA İLETİŞİMİ</span>
+                        📍 D301<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. G. NAZAN GÜNAY</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. G. NAZAN GÜNAY" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="PAZARLAMA TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">BÜTÜNLEŞİK PAZARLAMA İLETİŞİMİ</span>
+                        📍 D301<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. G. NAZAN GÜNAY</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">PAZARLAMA TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. HAYDAR YALÇIN" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="4. SINIF">
+                        <span class="lesson-name">AI LITERACY </span>
+                        📍 D105<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. HAYDAR YALÇIN</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">4. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">DEĞİŞEN YÖNETİM ROLLERİ: LİDERLİK KOÇLUK VE MENTORLUK</span>
+                        📍 D111<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    </td><td>
+                    <div class="lesson-card" data-teacher="DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="3. SINIF">
+                        <span class="lesson-name">STRATEGIC BRAND MANAGEMENT</span>
+                        📍 D111<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">3. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="4. SINIF">
+                        <span class="lesson-name">STRATEGIC BRAND MANAGEMENT</span>
+                        📍 D111<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">4. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. İNANÇ KABASAKAL" data-day="PERŞEMBE" data-status="ZORUNLU" data-sinif="1. SINIF">
+                        <span class="lesson-name">COMPUTER COURSE (ÇIFTLER)</span>
+                        📍 Lab<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. İNANÇ KABASAKAL</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">1. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. AYKAN CANDEMİR" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="3. SINIF">
+                        <span class="lesson-name">E-MARKETING</span>
+                        📍 D102<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. AYKAN CANDEMİR</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">3. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. AYKAN CANDEMİR" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="4. SINIF">
+                        <span class="lesson-name">E-MARKETING</span>
+                        📍 D102<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. AYKAN CANDEMİR</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">4. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. BURAK ÇAPRAZ" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
+                        <span class="lesson-name">İLERI ÖRGÜT KURAMI</span>
+                        📍 D105<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. BURAK ÇAPRAZ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. BURAK ÇAPRAZ" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="YÖNETİM BİLİMİ VE ORGANİZASYON DOKTORA">
+                        <span class="lesson-name">İLERİ ÖRGÜT KURAMI</span>
+                        📍 D105<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. BURAK ÇAPRAZ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">YÖNETİM BİLİMİ VE ORGANİZASYON DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. DILEK DEMİRHAN" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
+                        <span class="lesson-name">FINANS YÖNETIMINDE GÜNCEL KONULAR VE YAKLAŞIMLAR</span>
+                        📍 D301<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. DILEK DEMİRHAN</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. İPEK KAZANÇOĞLU" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="3. SINIF">
+                        <span class="lesson-name">ENDÜSTRIYEL PAZARLAMA</span>
+                        📍 D103<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. İPEK KAZANÇOĞLU</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">3. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. İPEK KAZANÇOĞLU" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="4. SINIF">
+                        <span class="lesson-name">ENDÜSTRIYEL PAZARLAMA</span>
+                        📍 D103<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. İPEK KAZANÇOĞLU</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">4. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. KETİ VENTURA" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
+                        <span class="lesson-name">KÜRESELLEŞME VE PAZAR DINAMIKLERI</span>
+                        📍 D302<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. KETİ VENTURA</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. KETİ VENTURA" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="PAZARLAMA DOKTORA">
+                        <span class="lesson-name">KÜRESELLEŞME VE PAZAR DINAMIKLERI</span>
+                        📍 D302<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. KETİ VENTURA</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">PAZARLAMA DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. MURAT KOCAMAZ" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
+                        <span class="lesson-name">İLERI ÜRETIM PLANLAMA</span>
+                        📍 D211<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. MURAT KOCAMAZ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. MURAT KOCAMAZ" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER DOKTORA">
+                        <span class="lesson-name">İLERİ ÜRETİM PLANLAMA</span>
+                        📍 D211<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. MURAT KOCAMAZ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER DOKTORA</span>
+                    </div>
+                    </td><td>
+                    <div class="lesson-card" data-teacher="ARAŞ. GÖR. DR. BEGÜM KANAT TİRYAKİ" data-day="CUMA" data-status="ZORUNLU" data-sinif="3. SINIF">
+                        <span class="lesson-name">ORGANIZATIONAL THEORY</span>
+                        📍 D102<br>
+                        👨‍🏫 <span class="teacher-name">ARAŞ. GÖR. DR. BEGÜM KANAT TİRYAKİ</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">3. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU" data-day="CUMA" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
+                        <span class="lesson-name">BÜTÜNLEŞIK PAZARLAMA İLETIŞIM VE YENI MEDYA</span>
+                        📍 D302<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU" data-day="CUMA" data-status="SEÇMELİ" data-sinif="PAZARLAMA DOKTORA">
+                        <span class="lesson-name">BÜTÜNLEŞIK PAZARLAMA İLETIŞIM VE YENI MEDYA</span>
+                        📍 D302<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">PAZARLAMA DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESİ MİRAY BAYBARS" data-day="CUMA" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">PAZARLAMADA ELEŞTİREL YAKLAŞIMLAR</span>
+                        📍 D211<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESİ MİRAY BAYBARS</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESİ MİRAY BAYBARS" data-day="CUMA" data-status="SEÇMELİ" data-sinif="PAZARLAMA TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">PAZARLAMADA ELEŞTİREL YAKLAŞIMLAR</span>
+                        📍 D211<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESİ MİRAY BAYBARS</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">PAZARLAMA TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. AYKAN CANDEMİR" data-day="CUMA" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">STRATEJİK MARKA YÖNETİMİ</span>
+                        📍 D104<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. AYKAN CANDEMİR</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. AYKAN CANDEMİR" data-day="CUMA" data-status="SEÇMELİ" data-sinif="PAZARLAMA TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">STRATEJİK MARKA YÖNETİMİ</span>
+                        📍 D104<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. AYKAN CANDEMİR</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">PAZARLAMA TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. DERYA İLİC" data-day="CUMA" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
+                        <span class="lesson-name">ÖRGÜTLERIN PSIKODINAMIKLERI VE ÖRGÜTSEL PSIKANALIZ</span>
+                        📍 D301<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. DERYA İLİC</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. DERYA İLİC" data-day="CUMA" data-status="SEÇMELİ" data-sinif="YÖNETİM BİLİMİ VE ORGANİZASYON DOKTORA">
+                        <span class="lesson-name">ÖRGÜTLERİN PSİKODİNAMİKLERİ VE ÖRGÜTSEL PSİKANALİZ</span>
+                        📍 D103<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. DERYA İLİC</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">YÖNETİM BİLİMİ VE ORGANİZASYON DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. İPEK KAZANÇOĞLU" data-day="CUMA" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
+                        <span class="lesson-name">STRATEJIK PERAKENDE YÖNETIMI</span>
+                        📍 D105<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. İPEK KAZANÇOĞLU</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. İPEK KAZANÇOĞLU" data-day="CUMA" data-status="SEÇMELİ" data-sinif="PAZARLAMA DOKTORA">
+                        <span class="lesson-name">STRATEJIK PERAKENDE YÖNETIMI</span>
+                        📍 D105<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. İPEK KAZANÇOĞLU</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">PAZARLAMA DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. MURAT KOCAMAZ" data-day="CUMA" data-status="ZORUNLU" data-sinif="ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">ÜRETİM PLANLAMA</span>
+                        📍 D301<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. MURAT KOCAMAZ</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    </td></tr><tr><td class='time-cell'>13.00-16.00</td><td>
+                    <div class="lesson-card" data-teacher="DOÇ. DR. BURCU ŞENTÜRK YILDIZ" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">İLERİ BİLİMSEL ARAŞTIRMA YÖNTEMLERİ</span>
+                        📍 D111<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. BURCU ŞENTÜRK YILDIZ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. BURCU ŞENTÜRK YILDIZ" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="YÖNETİM VE ORGANİZASYON TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">İLERİ BİLİMSEL ARAŞTIRMA YÖNTEMLERİ</span>
+                        📍 D111<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. BURCU ŞENTÜRK YILDIZ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">YÖNETİM VE ORGANİZASYON TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. U. GÖKAY ÇİÇEKLİ" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="3. SINIF">
+                        <span class="lesson-name">COMPUTER-AIDED PRODUCTION MANAGEMENT (TEKLER)</span>
+                        📍 Lab<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. U. GÖKAY ÇİÇEKLİ</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">3. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI HAKAN ERKAL" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
+                        <span class="lesson-name">ELEŞTIREL YÖNETIM ÇALIŞMALARI</span>
+                        📍 D211<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI HAKAN ERKAL</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI HAKAN ERKAL" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="YÖNETİM BİLİMİ VE ORGANİZASYON DOKTORA">
+                        <span class="lesson-name">ELEŞTİREL YÖNETİM ÇALIŞMALARI</span>
+                        📍 D211<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI HAKAN ERKAL</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">YÖNETİM BİLİMİ VE ORGANİZASYON DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. AYLA ÖZHAN DEDEOĞLU" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
+                        <span class="lesson-name">BILIM FELSEFESI</span>
+                        📍 D301<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. AYLA ÖZHAN DEDEOĞLU</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. AYLA ÖZHAN DEDEOĞLU" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="PAZARLAMA DOKTORA">
+                        <span class="lesson-name">BILIM FELSEFESI</span>
+                        📍 D301<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. AYLA ÖZHAN DEDEOĞLU</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">PAZARLAMA DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. BURAK ÇAPRAZ" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="4. SINIF">
+                        <span class="lesson-name">STRATEGIC MANAGEMENT AND BUSINESS POLICY</span>
+                        📍 D105<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. BURAK ÇAPRAZ</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">4. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. BURCU ARACIOĞLU" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER DOKTORA">
+                        <span class="lesson-name">STRATEJİK YENİLİK YÖNETİMİ</span>
+                        📍 D302<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. BURCU ARACIOĞLU</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. G. NAZAN GÜNAY" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="2. SINIF">
+                        <span class="lesson-name">MARKETING MANAGEMENT II</span>
+                        📍 D102<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. G. NAZAN GÜNAY</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">2. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. HAYDAR YALÇIN" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
+                        <span class="lesson-name">TEKNOLOJIDE İLERI GÖRÜŞ</span>
+                        📍 D206<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. HAYDAR YALÇIN</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. İPEK KAZANÇOĞLU" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">PERAKENDE PAZARLAMA YÖNETİMİ</span>
+                        📍 D103<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. İPEK KAZANÇOĞLU</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. İPEK KAZANÇOĞLU" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="PAZARLAMA TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">PERAKENDE PAZARLAMA YÖNETİMİ</span>
+                        📍 D103<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. İPEK KAZANÇOĞLU</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">PAZARLAMA TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    </td><td>
+                    <div class="lesson-card" data-teacher="ARAŞ. GÖR. DR. ÖZGÜR BABACAN" data-day="SALI" data-status="ZORUNLU" data-sinif="2. SINIF">
+                        <span class="lesson-name">MUHASEBE II</span>
+                        📍 D105<br>
+                        👨‍🏫 <span class="teacher-name">ARAŞ. GÖR. DR. ÖZGÜR BABACAN</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">2. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. İNANÇ KABASAKAL" data-day="SALI" data-status="ZORUNLU" data-sinif="3. SINIF">
+                        <span class="lesson-name">COMPUTER-AIDED PRODUCTION MANAGEMENT (ÇIFTLER)</span>
+                        📍 Lab<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. İNANÇ KABASAKAL</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">3. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI ESIN GÜRBÜZ" data-day="SALI" data-status="ZORUNLU" data-sinif="1. SINIF">
+                        <span class="lesson-name">HUKUKUN TEMEL KAVRAMLARI</span>
+                        📍 D104<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI ESIN GÜRBÜZ</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">1. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI HAKAN ERKAL" data-day="SALI" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">ÖRGÜT TEORİSİ</span>
+                        📍 D311<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI HAKAN ERKAL</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI HAKAN ERKAL" data-day="SALI" data-status="SEÇMELİ" data-sinif="YÖNETİM VE ORGANİZASYON TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">ÖRGÜT TEORİSİ</span>
+                        📍 D301<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI HAKAN ERKAL</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">YÖNETİM VE ORGANİZASYON TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. DERYA İLİC" data-day="SALI" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">ULUSLARARASI YÖNETİM</span>
+                        📍 D211<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. DERYA İLİC</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. DERYA İLİC" data-day="SALI" data-status="SEÇMELİ" data-sinif="YÖNETİM VE ORGANİZASYON TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">ULUSLARARASI YÖNETİM</span>
+                        📍 D211<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. DERYA İLİC</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">YÖNETİM VE ORGANİZASYON TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. HALUK SOYUER" data-day="SALI" data-status="SEÇMELİ" data-sinif="3. SINIF">
+                        <span class="lesson-name">TEKNOLOJI VE SANAYI DINAMIKLERI</span>
+                        📍 D303<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. HALUK SOYUER</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">3. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. HALUK SOYUER" data-day="SALI" data-status="SEÇMELİ" data-sinif="4. SINIF">
+                        <span class="lesson-name">TEKNOLOJI VE SANAYI DINAMIKLERI</span>
+                        📍 D303<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. HALUK SOYUER</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">4. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. HAYDAR YALÇIN" data-day="SALI" data-status="ZORUNLU" data-sinif="4. SINIF">
+                        <span class="lesson-name">MANAGEMENT INFORMATION SYSTEMS</span>
+                        📍 D102<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. HAYDAR YALÇIN</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">4. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. KETİ VENTURA" data-day="SALI" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">KÜRESEL PAZARLAMA</span>
+                        📍 D103<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. KETİ VENTURA</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. KETİ VENTURA" data-day="SALI" data-status="SEÇMELİ" data-sinif="PAZARLAMA TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">KÜRESEL PAZARLAMA</span>
+                        📍 D103<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. KETİ VENTURA</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">PAZARLAMA TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ" data-day="SALI" data-status="SEÇMELİ" data-sinif="3. SINIF">
+                        <span class="lesson-name">KURUMSAL KOÇLUK VE MENTÖRLÜK</span>
+                        📍 D111<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">3. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ" data-day="SALI" data-status="SEÇMELİ" data-sinif="4. SINIF">
+                        <span class="lesson-name">KURUMSAL KOÇLUK VE MENTÖRLÜK</span>
+                        📍 D111<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">4. SINIF</span>
+                    </div>
+                    </td><td>
+                    <div class="lesson-card" data-teacher="DOÇ. DR. AYDIN KOÇAK" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">PROJE YÖNETİMİ</span>
+                        📍 D211<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. AYDIN KOÇAK</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. AYDIN KOÇAK" data-day="ÇARŞAMBA" data-status="ZORUNLU" data-sinif="ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">PROJE YÖNETİMİ</span>
+                        📍 D211<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. AYDIN KOÇAK</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
+                        <span class="lesson-name">ELEŞTIREL PAZARLAMA OKUMALARI</span>
+                        📍 D103<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="PAZARLAMA DOKTORA">
+                        <span class="lesson-name">ELEŞTIREL PAZARLAMA OKUMALARI</span>
+                        📍 D103<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">PAZARLAMA DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">STRATEJİK İŞLETME FİNANSI</span>
+                        📍 D301<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. AYLA ÖZHAN DEDEOĞLU" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="4. SINIF">
+                        <span class="lesson-name">CURRENT ISSUES IN MARKETING</span>
+                        📍 D111<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. AYLA ÖZHAN DEDEOĞLU</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">4. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. BURCU ARACIOĞLU" data-day="ÇARŞAMBA" data-status="ZORUNLU" data-sinif="2. SINIF">
+                        <span class="lesson-name">OPERATIONS MANAGEMENT II</span>
+                        📍 D104<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. BURCU ARACIOĞLU</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">2. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. G. NAZAN GÜNAY" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
+                        <span class="lesson-name">TÜKETICI DAVRANIŞLARI VE TÜKETIM KÜLTÜRÜ TEORILERI</span>
+                        📍 D302<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. G. NAZAN GÜNAY</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. G. NAZAN GÜNAY" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="PAZARLAMA DOKTORA">
+                        <span class="lesson-name">TÜKETICI DAVRANIŞLARI VE TÜKETIM KÜLTÜRÜ TEORILERI</span>
+                        📍 D301<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. G. NAZAN GÜNAY</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">PAZARLAMA DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. HAYDAR YALÇIN" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">TEKNOLOJİNİN GELECEĞİ</span>
+                        📍 D206<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. HAYDAR YALÇIN</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. MEHMET KARAÇUKA" data-day="ÇARŞAMBA" data-status="ZORUNLU" data-sinif="1. SINIF">
+                        <span class="lesson-name">INTRODUCTION TO MACROECONOMICS</span>
+                        📍 D102<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. MEHMET KARAÇUKA</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">1. SINIF</span>
+                    </div>
+                    </td><td>
+                    <div class="lesson-card" data-teacher="DOÇ. DR. AYDIN KOÇAK" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
+                        <span class="lesson-name">ÜRETIM BILIŞIM SISTEMLERI</span>
+                        📍 D302<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. AYDIN KOÇAK</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. AYDIN KOÇAK" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER DOKTORA">
+                        <span class="lesson-name">ÜRETİM BİLİŞİM SİSTEMLERİ</span>
+                        📍 D302<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. AYDIN KOÇAK</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. İNANÇ KABASAKAL" data-day="PERŞEMBE" data-status="ZORUNLU" data-sinif="1. SINIF">
+                        <span class="lesson-name">COMPUTER COURSE (TEKLER)</span>
+                        📍 Lab<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. İNANÇ KABASAKAL</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">1. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. U. GÖKAY ÇİÇEKLİ" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">TEKNOLOJİ YÖNETİMİ VE KARAR VERME</span>
+                        📍 D301<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. U. GÖKAY ÇİÇEKLİ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESİ MİRAY BAYBARS" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="4. SINIF">
+                        <span class="lesson-name">MARKETING STRATEGY</span>
+                        📍 D103<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESİ MİRAY BAYBARS</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">4. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
+                        <span class="lesson-name">SERMAYE PIYASASI TEORISI VE YATIRIM ANALIZI</span>
+                        📍 D102<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="ARAŞ. GÖR. DR. ÖZGÜR BABACAN" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">ULUSLARARASI FİNANS</span>
+                        📍 D211<br>
+                        👨‍🏫 <span class="teacher-name">ARAŞ. GÖR. DR. ÖZGÜR BABACAN</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. AYKAN CANDEMİR" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
+                        <span class="lesson-name">MARKA YÖNETIMINDE GÜNCEL YAKLAŞIMLAR</span>
+                        📍 D111<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. AYKAN CANDEMİR</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. AYKAN CANDEMİR" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="PAZARLAMA DOKTORA">
+                        <span class="lesson-name">MARKA YÖNETIMINDE GÜNCEL YAKLAŞIMLAR</span>
+                        📍 D111<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. AYKAN CANDEMİR</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">PAZARLAMA DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. AYLA ÖZHAN DEDEOĞLU" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">TÜKETİM KÜLTÜRÜ TEORİLERİ</span>
+                        📍 D303<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. AYLA ÖZHAN DEDEOĞLU</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. AYLA ÖZHAN DEDEOĞLU" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="PAZARLAMA TEZLİ YÜKSEK LİSANS">
+                        <span class="lesson-name">TÜKETİM KÜLTÜRÜ TEORİLERİ</span>
+                        📍 D303<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. AYLA ÖZHAN DEDEOĞLU</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">PAZARLAMA TEZLİ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. MURAT KOCAMAZ" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="4. SINIF">
+                        <span class="lesson-name">NEW OPERATIONS SYSTEMS</span>
+                        📍 D105<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. MURAT KOCAMAZ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">4. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. TÜRKER SUSMUŞ" data-day="PERŞEMBE" data-status="ZORUNLU" data-sinif="3. SINIF">
+                        <span class="lesson-name">MALIYET MUHASEBESI</span>
+                        📍 D104<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. TÜRKER SUSMUŞ</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">3. SINIF</span>
+                    </div>
+                    </td><td></td></tr><tr><td class='time-cell'>13.00-14.45</td><td>
+                    <div class="lesson-card" data-teacher="DOÇ. DR. FATMA TEKİN" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="1. SINIF">
+                        <span class="lesson-name">TÜRK DILI II</span>
+                        📍 D104<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. FATMA TEKİN</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">1. SINIF</span>
+                    </div>
+                    </td><td></td><td></td><td></td><td></td></tr><tr><td class='time-cell'>14.00-17.00</td><td></td><td></td><td>
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="4. SINIF">
+                        <span class="lesson-name">RISK YÖNETIMI</span>
+                        📍 D105<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">4. SINIF</span>
+                    </div>
+                    </td><td></td><td>
+                    <div class="lesson-card" data-teacher="DOÇ. DR. AYDIN KOÇAK" data-day="CUMA" data-status="SEÇMELİ" data-sinif="3. SINIF">
+                        <span class="lesson-name">YENILIK YÖNETIMI</span>
+                        📍 D103<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. AYDIN KOÇAK</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">3. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. AYDIN KOÇAK" data-day="CUMA" data-status="SEÇMELİ" data-sinif="4. SINIF">
+                        <span class="lesson-name">YENILIK YÖNETIMI</span>
+                        📍 D103<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. AYDIN KOÇAK</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">4. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU" data-day="CUMA" data-status="SEÇMELİ" data-sinif="3. SINIF">
+                        <span class="lesson-name">UYGULAMALI DIŞ TICARET VE LOJISTIK</span>
+                        📍 D211<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">3. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU" data-day="CUMA" data-status="SEÇMELİ" data-sinif="4. SINIF">
+                        <span class="lesson-name">UYGULAMALI DIŞ TICARET VE LOJISTIK</span>
+                        📍 D211<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">4. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI HAKAN ERKAL" data-day="CUMA" data-status="SEÇMELİ" data-sinif="3. SINIF">
+                        <span class="lesson-name">YÖNETIM FELSEFESI</span>
+                        📍 D105<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI HAKAN ERKAL</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">3. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI HAKAN ERKAL" data-day="CUMA" data-status="SEÇMELİ" data-sinif="4. SINIF">
+                        <span class="lesson-name">YÖNETIM FELSEFESI</span>
+                        📍 D105<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI HAKAN ERKAL</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">4. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. TÜRKER SUSMUŞ" data-day="CUMA" data-status="SEÇMELİ" data-sinif="3. SINIF">
+                        <span class="lesson-name">UYGULAMALI FINANSAL PIYASA İŞLEMLERI</span>
+                        📍 D104<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. TÜRKER SUSMUŞ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">3. SINIF</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. TÜRKER SUSMUŞ" data-day="CUMA" data-status="SEÇMELİ" data-sinif="4. SINIF">
+                        <span class="lesson-name">UYGULAMALI FINANSAL PIYASA İŞLEMLERI</span>
+                        📍 D104<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. TÜRKER SUSMUŞ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">4. SINIF</span>
+                    </div>
+                    </td></tr><tr><td class='time-cell'>14.00-16.00</td><td></td><td></td><td></td><td></td><td>
+                    <div class="lesson-card" data-teacher="DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN" data-day="CUMA" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
+                        <span class="lesson-name">İLERI PAZARLAMA ARAŞTIRMALARI VE ANALIZI</span>
+                        📍 D301<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN" data-day="CUMA" data-status="SEÇMELİ" data-sinif="PAZARLAMA DOKTORA">
+                        <span class="lesson-name">İLERI PAZARLAMA ARAŞTIRMALARI VE ANALIZI</span>
+                        📍 D301<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">PAZARLAMA DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI ESIN GÜRBÜZ" data-day="CUMA" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
+                        <span class="lesson-name">REKABET POLITIKASI VE HUKUKU</span>
+                        📍 D111<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI ESIN GÜRBÜZ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME DOKTORA</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="ÖĞR. GÖR. DR. M. ALI DURMUŞ" data-day="CUMA" data-status="ZORUNLU" data-sinif="1. SINIF">
+                        <span class="lesson-name">ATATÜRK İLKELERI VE İNKILAP TARIHI II</span>
+                        📍 D102<br>
+                        👨‍🏫 <span class="teacher-name">ÖĞR. GÖR. DR. M. ALI DURMUŞ</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">1. SINIF</span>
+                    </div>
+                    </td></tr><tr><td class='time-cell'>16.00-17.00</td><td></td><td>
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI ESIN GÜRBÜZ" data-day="SALI" data-status="ZORUNLU" data-sinif="1. SINIF">
+                        <span class="lesson-name">ÇOCUK HAKLARI VE AILE EĞITIMI</span>
+                        📍 D104<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI ESIN GÜRBÜZ</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">1. SINIF</span>
+                    </div>
+                    </td><td></td><td></td><td></td></tr><tr><td class='time-cell'>18.30-21.15</td><td>
+                    <div class="lesson-card" data-teacher="DOÇ. DR. BURCU ŞENTÜRK YILDIZ" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">ULUSLARARASI PIYASALAR ÖRGÜTLER VE TOPLUMSAL CINSIYET EŞITSIZLIĞI</span>
+                        📍 D210<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. BURCU ŞENTÜRK YILDIZ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. U. GÖKAY ÇİÇEKLİ" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">BİLİMSEL ARAŞTIRMA YÖNTEMLERİ VE ETİK</span>
+                        📍 D302<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. U. GÖKAY ÇİÇEKLİ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">BILIMSEL ARAŞTIRMA YÖNTEMLERI VE ETIK (B GRUBU)</span>
+                        📍 D104<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI HAKAN ERKAL" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">KÜRESELLEŞME ÜRETIM VE TOPLUM</span>
+                        📍 D211<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI HAKAN ERKAL</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. BURCU ARACIOĞLU" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="UZAKTAN LOJİSTİK YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">İŞLETME LOJİSTİĞİ</span>
+                        📍 -<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. BURCU ARACIOĞLU</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">UZAKTAN LOJİSTİK YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. G. NAZAN GÜNAY" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">MÜŞTERİ İLİŞKİLERİ VE SATIŞ YÖNETİMİ</span>
+                        📍 D102<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. G. NAZAN GÜNAY</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. İPEK KAZANÇOĞLU" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="UZAKTAN ÖĞRETİM İŞLETME TEZSİZ E- YÜKSEK LİSANS">
+                        <span class="lesson-name">BİLİMSEL ARAŞTIRMA YÖNTEMLERİ VE ETİK</span>
+                        📍 -<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. İPEK KAZANÇOĞLU</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">UZAKTAN ÖĞRETİM İŞLETME TEZSİZ E- YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. KETİ VENTURA" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">BILIMSEL ARAŞTIRMA YÖNTEMLERI VE ETIK (A GRUBU)</span>
+                        📍 D111<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. KETİ VENTURA</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">LIDERLIK VE YÖNETICILIK GELIŞTIRME</span>
+                        📍 D301<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. TÜRKER SUSMUŞ" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">STRATEJIK MALIYET YÖNETIMI</span>
+                        📍 D105<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. TÜRKER SUSMUŞ</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    </td><td>
+                    <div class="lesson-card" data-teacher="DOÇ. DR. AYDIN KOÇAK" data-day="SALI" data-status="SEÇMELİ" data-sinif="UZAKTAN LOJİSTİK YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">PROJE YÖNETİMİ</span>
+                        📍 -<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. AYDIN KOÇAK</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">UZAKTAN LOJİSTİK YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. SEMA AYDIN" data-day="SALI" data-status="SEÇMELİ" data-sinif="İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">İŞ HUKUKU</span>
+                        📍 D103<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. SEMA AYDIN</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. U. GÖKAY ÇİÇEKLİ" data-day="SALI" data-status="SEÇMELİ" data-sinif="İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">YÖNETIMDE KARAR MODELLERI</span>
+                        📍 D301<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. U. GÖKAY ÇİÇEKLİ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI" data-day="SALI" data-status="ZORUNLU" data-sinif="MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">STRATEJIK YÖNETIM MUHASEBESI</span>
+                        📍 D105<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ" data-day="SALI" data-status="ZORUNLU" data-sinif="KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">LIDERLIK TEORILERI VE KURUMSAL LIDERLIK</span>
+                        📍 D210<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. AYLA ÖZHAN DEDEOĞLU" data-day="SALI" data-status="ZORUNLU" data-sinif="PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">BİLİMSEL ARAŞTIRMA YÖNTEMLERİ VE ETİK</span>
+                        📍 LAB<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. AYLA ÖZHAN DEDEOĞLU</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. BURAK ÇAPRAZ" data-day="SALI" data-status="ZORUNLU" data-sinif="İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">STRATEJIK YÖNETIM VE KURUMSALLAŞMA</span>
+                        📍 D111<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. BURAK ÇAPRAZ</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. DERYA İLİC" data-day="SALI" data-status="SEÇMELİ" data-sinif="İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">YÖNETIM PSIKOLOJISI</span>
+                        📍 D104<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. DERYA İLİC</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. HALUK SOYUER" data-day="SALI" data-status="ZORUNLU" data-sinif="ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">İŞLETMELERDE DİJİTAL DÖNÜŞÜMÜN YÖNETİMİ</span>
+                        📍 D302<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. HALUK SOYUER</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. HAYDAR YALÇIN" data-day="SALI" data-status="ZORUNLU" data-sinif="UZAKTAN ÖĞRETİM İŞLETME TEZSİZ E- YÜKSEK LİSANS">
+                        <span class="lesson-name">YÖNETİM BİLGİ SİSTEMLERİ</span>
+                        📍 -<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. HAYDAR YALÇIN</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">UZAKTAN ÖĞRETİM İŞLETME TEZSİZ E- YÜKSEK LİSANS</span>
+                    </div>
+                    </td><td>
+                    <div class="lesson-card" data-teacher="DOÇ. DR. U. GÖKAY ÇİÇEKLİ" data-day="ÇARŞAMBA" data-status="ZORUNLU" data-sinif="UZAKTAN LOJİSTİK YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">LOJİSTİK PROBLEMLERİNDE PLANLAMA VE MODELLEME</span>
+                        📍 -<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. U. GÖKAY ÇİÇEKLİ</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">UZAKTAN LOJİSTİK YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI ESIN GÜRBÜZ" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">İŞ HUKUKU</span>
+                        📍 D111<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI ESIN GÜRBÜZ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI HAKAN ERKAL" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">KÜRESELLEŞME VE ULUSLARARASI YÖNETIM</span>
+                        📍 D109<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI HAKAN ERKAL</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. AYLA ÖZHAN DEDEOĞLU" data-day="ÇARŞAMBA" data-status="ZORUNLU" data-sinif="PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">KÜRESEL PAZARLAMA</span>
+                        📍 D102<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. AYLA ÖZHAN DEDEOĞLU</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. BURAK ÇAPRAZ" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">STRATEJIK YÖNETIM</span>
+                        📍 D103<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. BURAK ÇAPRAZ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. DERYA İLİC" data-day="ÇARŞAMBA" data-status="ZORUNLU" data-sinif="KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">KURUMSAL YÖNETIM</span>
+                        📍 D210<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. DERYA İLİC</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. DILEK DEMİRHAN" data-day="ÇARŞAMBA" data-status="ZORUNLU" data-sinif="MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">DENETIM VE GÜVENCE HIZMETLERI</span>
+                        📍 D105<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. DILEK DEMİRHAN</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. HALUK SOYUER" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="UZAKTAN ÖĞRETİM İŞLETME TEZSİZ E- YÜKSEK LİSANS">
+                        <span class="lesson-name">KURUMSAL KAYNAK PLANLAMA</span>
+                        📍 -<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. HALUK SOYUER</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">UZAKTAN ÖĞRETİM İŞLETME TEZSİZ E- YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. HAYDAR YALÇIN" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">YAPAY ZEKÂ VE İŞLETMELER: STRATEJIK UYGULAMALAR</span>
+                        📍 D104<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. HAYDAR YALÇIN</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. MURAT KOCAMAZ" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">ÜRETİM ÇİZELGELEMEDE SEZGİSEL VE SAYISAL YAKLAŞIMLAR</span>
+                        📍 D302<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. MURAT KOCAMAZ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    </td><td>
+                    <div class="lesson-card" data-teacher="ARAŞ. GÖR. DR. ÖZGÜR BABACAN" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">MUHASEBE VE FINANSTA KANTITATIF YÖNTEMLER</span>
+                        📍 D105<br>
+                        👨‍🏫 <span class="teacher-name">ARAŞ. GÖR. DR. ÖZGÜR BABACAN</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. AYDIN KOÇAK" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">STOK YÖNETİMİ</span>
+                        📍 D302<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. AYDIN KOÇAK</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. BURCU ŞENTÜRK YILDIZ" data-day="PERŞEMBE" data-status="ZORUNLU" data-sinif="İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">GÜNCEL İNSAN KAYNAKLARI YÖNETIMI UYGULAMALARI</span>
+                        📍 D109<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. BURCU ŞENTÜRK YILDIZ</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. İNANÇ KABASAKAL" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">ÜRETİM SÜREÇLERİNDE ANALİTİK YAKLAŞIMLAR</span>
+                        📍 LAB<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. İNANÇ KABASAKAL</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI" data-day="PERŞEMBE" data-status="ZORUNLU" data-sinif="UZAKTAN ÖĞRETİM İŞLETME TEZSİZ E- YÜKSEK LİSANS">
+                        <span class="lesson-name">FİNANSAL YÖNETİM</span>
+                        📍 -<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">UZAKTAN ÖĞRETİM İŞLETME TEZSİZ E- YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. AYLA ÖZHAN DEDEOĞLU" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">STRATEJIK MARKA YÖNETIMI</span>
+                        📍 D103<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. AYLA ÖZHAN DEDEOĞLU</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. BURCU ARACIOĞLU" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">TEDARIK ZINCIRI YÖNETIMI</span>
+                        📍 D301<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. BURCU ARACIOĞLU</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. DILEK DEMİRHAN" data-day="PERŞEMBE" data-status="ZORUNLU" data-sinif="KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">KURUMSAL DENETIM VE RISK YÖNETIMI</span>
+                        📍 D210<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. DILEK DEMİRHAN</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. G. NAZAN GÜNAY" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">TÜKETICI DAVRANIŞLARI</span>
+                        📍 D111<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. G. NAZAN GÜNAY</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. İPEK KAZANÇOĞLU" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">PAZARLAMADA GÜNCEL YAKLAŞIMLAR VE MARKA UYGULAMALARI</span>
+                        📍 D102<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. İPEK KAZANÇOĞLU</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. KETİ VENTURA" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">PAZARLAMADA TEKNOLOJİ VE İNOVASYON YÖNETİMİ</span>
+                        📍 D211<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. KETİ VENTURA</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. MURAT KOCAMAZ" data-day="PERŞEMBE" data-status="ZORUNLU" data-sinif="UZAKTAN LOJİSTİK YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">DEPO VE DAĞITIM MERKEZLERİ YÖNETİMİ</span>
+                        📍 -<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. MURAT KOCAMAZ</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">UZAKTAN LOJİSTİK YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. TÜRKER SUSMUŞ" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">ULUSLARARASI FINANSAL RAPORLAMA</span>
+                        📍 D104<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. TÜRKER SUSMUŞ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    </td><td>
+                    <div class="lesson-card" data-teacher="ARAŞ. GÖR. DR. ÖZGÜR BABACAN" data-day="CUMA" data-status="SEÇMELİ" data-sinif="İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">MALI TABLOLARI OKUMAK VE ANLAMAK</span>
+                        📍 D104<br>
+                        👨‍🏫 <span class="teacher-name">ARAŞ. GÖR. DR. ÖZGÜR BABACAN</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DOÇ. DR. AYDIN KOÇAK" data-day="CUMA" data-status="SEÇMELİ" data-sinif="UZAKTAN ÖĞRETİM İŞLETME TEZSİZ E- YÜKSEK LİSANS">
+                        <span class="lesson-name">PROJE YÖNETİMİ</span>
+                        📍 -<br>
+                        👨‍🏫 <span class="teacher-name">DOÇ. DR. AYDIN KOÇAK</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">UZAKTAN ÖĞRETİM İŞLETME TEZSİZ E- YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI" data-day="CUMA" data-status="ZORUNLU" data-sinif="MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">FINANSAL TABLOLAR ANALIZI</span>
+                        📍 D105<br>
+                        👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. AYKAN CANDEMİR" data-day="CUMA" data-status="ZORUNLU" data-sinif="PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">STRATEJİK MARKA YÖNETİMİ</span>
+                        📍 D102<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. AYKAN CANDEMİR</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. BURAK ÇAPRAZ" data-day="CUMA" data-status="ZORUNLU" data-sinif="KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">AILE İŞLETMELERINDE YÖNETIM VE KURUMSALLAŞMA</span>
+                        📍 D210<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. BURAK ÇAPRAZ</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. BURCU ARACIOĞLU" data-day="CUMA" data-status="SEÇMELİ" data-sinif="ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">DİJİTALLEŞEN TEDARİK AĞLARI VE STRATEJİK ENTEGRASYON</span>
+                        📍 D302<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. BURCU ARACIOĞLU</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. DERYA İLİC" data-day="CUMA" data-status="ZORUNLU" data-sinif="İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">ÖRGÜTSEL DEĞIŞIM YÖNETIMI VE YÖNETIM DANIŞMANLIĞI</span>
+                        📍 D111<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. DERYA İLİC</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. HALUK SOYUER" data-day="CUMA" data-status="ZORUNLU" data-sinif="UZAKTAN LOJİSTİK YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">STRATEJİK TEDARİK ZİNCİRİ YÖNETİMİ</span>
+                        📍 -<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. HALUK SOYUER</span><br>
+                        <span class="durum-info">📄 ZORUNLU</span>
+                        <span class="class-badge">UZAKTAN LOJİSTİK YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    
+                    <div class="lesson-card" data-teacher="PROF. DR. MURAT KOCAMAZ" data-day="CUMA" data-status="SEÇMELİ" data-sinif="İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS">
+                        <span class="lesson-name">TEKNOLOJI VE İNOVASYON YÖNETIMI</span>
+                        📍 D103<br>
+                        👨‍🏫 <span class="teacher-name">PROF. DR. MURAT KOCAMAZ</span><br>
+                        <span class="durum-info">📄 SEÇMELİ</span>
+                        <span class="class-badge">İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                    </div>
+                    </td></tr>
+                </tbody>
+            </table>
+        </div>
+        <script>
+            function filterSchedule() {
+                const gun = document.getElementById("gunSelect").value;
+                const sinif = document.getElementById("sinifSelect").value;
+                const teacher = document.getElementById("teacherSelect").value;
+                const status = document.getElementById("statusSelect").value;
+
+                document.querySelectorAll("#scheduleTable tbody tr").forEach(row => {
+                    const dersler = Array.from(row.querySelectorAll(".lesson-card"));
+                    let showRow = false;
+
+                    dersler.forEach(card => {
+                        const show = (gun==='all' || card.dataset.day===gun) &&
+                                     (sinif==='all' || card.dataset.sinif===sinif) &&
+                                     (teacher==='all' || card.dataset.teacher===teacher) &&
+                                     (status==='all' || card.dataset.status===status);
+                        card.style.display = show ? "block" : "none";
+                        if(show) showRow = true;
+                    });
+
+                    row.style.display = showRow ? "" : "none";
+                });
+            }
+        </script>
+        </body>
+        </html>
+        
