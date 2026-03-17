@@ -11,7 +11,9 @@
                 .filters { display: flex; gap: 15px; justify-content: center; background: #fff; padding: 20px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e0e0e0; position: sticky; top: 10px; z-index: 1000; }
                 .filter-group { display: flex; flex-direction: column; }
                 label { font-weight: 600; margin-bottom: 5px; font-size: 13px; color: #666; }
-                select { padding: 8px 12px; border-radius: 5px; border: 1px solid #ddd; min-width: 180px; }
+                select { padding: 8px 12px; border-radius: 5px; border: 1px solid #ddd; width: 180px; }
+                .btn-export { background-color: #2e7d32; color: white; border: none; padding: 9px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 13px; margin-top: auto; }
+                .btn-export:hover { background-color: #1b5e20; }
                 table { width: 100%; border-collapse: collapse; table-layout: fixed; }
                 th { background-color: #1a73e8; color: white; padding: 12px; border: 1px solid #ddd; font-size: 14px; }
                 td { border: 1px solid #e0e0e0; vertical-align: top; padding: 5px; background: #fafafa; height: 110px; }
@@ -21,6 +23,7 @@
                 .teacher-name { color: #2e7d32; font-weight: 600; font-style: italic; }
                 .durum-info { color: #666; font-size: 11px; display: block; margin-top: 2px; font-weight: 500; }
                 .class-badge { display: inline-block; background: #e8f0fe; color: #1967d2; padding: 2px 6px; border-radius: 10px; font-size: 10px; margin-top: 4px; font-weight: bold; }
+                .btn-single-add { display: block; margin-top: 6px; background: #4285F4; color: white; padding: 3px 6px; border-radius: 3px; font-size: 9px; border: none; cursor: pointer; }
             </style>
         </head>
         <body>
@@ -51,6 +54,9 @@
                         <option value='SEÇMELİ'>SEÇMELİ</option><option value='ZORUNLU'>ZORUNLU</option>
                     </select>
                 </div>
+                <div class="filter-group"><label>&nbsp;</label>
+                    <button class="btn-export" onclick="downloadICS()">📥 Seçili Programı İndir (.ics)</button>
+                </div>
             </div>
 
             <table id="scheduleTable">
@@ -65,6 +71,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. AYŞEGÜL ÇAKSU GÜLER</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">1. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'MATEMATIK-II ', teacher:'DOÇ. DR. AYŞEGÜL ÇAKSU GÜLER', room:'D102', day:'PAZARTESI', hour:'09.00-12.00', classInfo:'1. SINIF', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. BURCU ŞENTÜRK YILDIZ" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
@@ -73,6 +80,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. BURCU ŞENTÜRK YILDIZ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'YÖNETIM BILIMLERINDE NITEL ARAŞTIRMA', teacher:'DOÇ. DR. BURCU ŞENTÜRK YILDIZ', room:'D111', day:'PAZARTESI', hour:'09.00-12.00', classInfo:'İŞLETME DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. BURCU ŞENTÜRK YILDIZ" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="YÖNETİM BİLİMİ VE ORGANİZASYON DOKTORA">
@@ -81,6 +89,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. BURCU ŞENTÜRK YILDIZ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">YÖNETİM BİLİMİ VE ORGANİZASYON DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'YÖNETİM BİLİMLERİNDE NİTEL ARAŞTIRMA', teacher:'DOÇ. DR. BURCU ŞENTÜRK YILDIZ', room:'D111', day:'PAZARTESI', hour:'09.00-12.00', classInfo:'YÖNETİM BİLİMİ VE ORGANİZASYON DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. SEMA AYDIN" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="2. SINIF">
@@ -89,6 +98,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. SEMA AYDIN</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">2. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'TICARET HUKUKU', teacher:'DOÇ. DR. SEMA AYDIN', room:'D104', day:'PAZARTESI', hour:'09.00-12.00', classInfo:'2. SINIF', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. U. GÖKAY ÇİÇEKLİ" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER TEZLİ YÜKSEK LİSANS">
@@ -97,6 +107,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. U. GÖKAY ÇİÇEKLİ</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'KARAR TEORİSİ', teacher:'DOÇ. DR. U. GÖKAY ÇİÇEKLİ', room:'D302', day:'PAZARTESI', hour:'09.00-12.00', classInfo:'ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER TEZLİ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
@@ -105,6 +116,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'PAZARLAMADA TEKNOLOJİ VE YENİLİK YÖNETİMİ', teacher:'DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU', room:'D211', day:'PAZARTESI', hour:'09.00-12.00', classInfo:'İŞLETME TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="PAZARLAMA TEZLİ YÜKSEK LİSANS">
@@ -113,6 +125,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">PAZARLAMA TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'PAZARLAMADA TEKNOLOJİ VE YENİLİK YÖNETİMİ', teacher:'DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU', room:'D211', day:'PAZARTESI', hour:'09.00-12.00', classInfo:'PAZARLAMA TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. KETİ VENTURA" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="3. SINIF">
@@ -121,6 +134,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. KETİ VENTURA</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">3. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'SALES MANAGEMENT', teacher:'PROF. DR. KETİ VENTURA', room:'D105', day:'PAZARTESI', hour:'09.00-12.00', classInfo:'3. SINIF', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     </td><td>
                     <div class="lesson-card" data-teacher="DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN" data-day="SALI" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
@@ -129,6 +143,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'NİTEL ARAŞTIRMA YÖNTEMLERİ', teacher:'DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN', room:'LAB', day:'SALI', hour:'09.00-12.00', classInfo:'İŞLETME TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN" data-day="SALI" data-status="SEÇMELİ" data-sinif="PAZARLAMA TEZLİ YÜKSEK LİSANS">
@@ -137,6 +152,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">PAZARLAMA TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'NİTEL ARAŞTIRMA YÖNTEMLERİ', teacher:'DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN', room:'LAB', day:'SALI', hour:'09.00-12.00', classInfo:'PAZARLAMA TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. İNANÇ KABASAKAL" data-day="SALI" data-status="ZORUNLU" data-sinif="2. SINIF">
@@ -145,6 +161,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. İNANÇ KABASAKAL</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">2. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'İSTATISTIK II', teacher:'DOÇ. DR. İNANÇ KABASAKAL', room:'D104', day:'SALI', hour:'09.00-12.00', classInfo:'2. SINIF', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. U. GÖKAY ÇİÇEKLİ" data-day="SALI" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
@@ -153,6 +170,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. U. GÖKAY ÇİÇEKLİ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'ÜRETIM YÖNETIMI UYGULAMALARI', teacher:'DOÇ. DR. U. GÖKAY ÇİÇEKLİ', room:'D302', day:'SALI', hour:'09.00-12.00', classInfo:'İŞLETME DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. U. GÖKAY ÇİÇEKLİ" data-day="SALI" data-status="SEÇMELİ" data-sinif="ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER DOKTORA">
@@ -161,6 +179,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. U. GÖKAY ÇİÇEKLİ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'ÜRETİM YÖNETİMİ UYGULAMALARI', teacher:'DOÇ. DR. U. GÖKAY ÇİÇEKLİ', room:'D302', day:'SALI', hour:'09.00-12.00', classInfo:'ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI" data-day="SALI" data-status="ZORUNLU" data-sinif="4. SINIF">
@@ -169,6 +188,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">4. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'SERMAYE PIYASASI ANALIZI', teacher:'DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI', room:'D102', day:'SALI', hour:'09.00-12.00', classInfo:'4. SINIF', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. BURAK ÇAPRAZ" data-day="SALI" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
@@ -177,6 +197,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. BURAK ÇAPRAZ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'STRATEJİK YÖNETİM', teacher:'PROF. DR. BURAK ÇAPRAZ', room:'D111', day:'SALI', hour:'09.00-12.00', classInfo:'İŞLETME TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. BURAK ÇAPRAZ" data-day="SALI" data-status="SEÇMELİ" data-sinif="YÖNETİM VE ORGANİZASYON TEZLİ YÜKSEK LİSANS">
@@ -185,6 +206,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. BURAK ÇAPRAZ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">YÖNETİM VE ORGANİZASYON TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'STRATEJİK YÖNETİM', teacher:'PROF. DR. BURAK ÇAPRAZ', room:'D111', day:'SALI', hour:'09.00-12.00', classInfo:'YÖNETİM VE ORGANİZASYON TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. DERYA İLİC" data-day="SALI" data-status="ZORUNLU" data-sinif="1. SINIF">
@@ -193,6 +215,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. DERYA İLİC</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">1. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'PRINCIPLES OF MANAGEMENT', teacher:'PROF. DR. DERYA İLİC', room:'D105', day:'SALI', hour:'09.00-12.00', classInfo:'1. SINIF', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. HALUK SOYUER" data-day="SALI" data-status="ZORUNLU" data-sinif="ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER TEZLİ YÜKSEK LİSANS">
@@ -201,6 +224,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. HALUK SOYUER</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'STRATEJİK ÜRETİM YÖNETİMİ', teacher:'PROF. DR. HALUK SOYUER', room:'D211', day:'SALI', hour:'09.00-12.00', classInfo:'ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER TEZLİ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ" data-day="SALI" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
@@ -209,6 +233,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'LIDERLIĞIN DOĞASI VE LIDERLIK KURAMLARININ EVRIMI', teacher:'PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ', room:'D301', day:'SALI', hour:'09.00-12.00', classInfo:'İŞLETME DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ" data-day="SALI" data-status="SEÇMELİ" data-sinif="YÖNETİM BİLİMİ VE ORGANİZASYON DOKTORA">
@@ -217,6 +242,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">YÖNETİM BİLİMİ VE ORGANİZASYON DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'LİDERLİĞİN DOĞASI VE LİDERLİK KURAMLARININ EVRİMİ', teacher:'PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ', room:'D301', day:'SALI', hour:'09.00-12.00', classInfo:'YÖNETİM BİLİMİ VE ORGANİZASYON DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. TÜRKER SUSMUŞ" data-day="SALI" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
@@ -225,6 +251,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. TÜRKER SUSMUŞ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'İLERI YÖNETIM MUHASEBESI', teacher:'PROF. DR. TÜRKER SUSMUŞ', room:'D103', day:'SALI', hour:'09.00-12.00', classInfo:'İŞLETME DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     </td><td>
                     <div class="lesson-card" data-teacher="DOÇ. DR. BURCU ŞENTÜRK YILDIZ" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="4. SINIF">
@@ -233,6 +260,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. BURCU ŞENTÜRK YILDIZ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">4. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'PERFORMANS YÖNETIMI', teacher:'DOÇ. DR. BURCU ŞENTÜRK YILDIZ', room:'D103', day:'ÇARŞAMBA', hour:'09.00-12.00', classInfo:'4. SINIF', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="YÖNETİM VE ORGANİZASYON TEZLİ YÜKSEK LİSANS">
@@ -241,6 +269,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">YÖNETİM VE ORGANİZASYON TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'DEĞİŞEN YÖNETİM ROLLERİ: LİDERLİK KOÇLUK VE MENTORLUK', teacher:'PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ', room:'D111', day:'ÇARŞAMBA', hour:'09.00-12.00', classInfo:'YÖNETİM VE ORGANİZASYON TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. SEMA AYDIN" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
@@ -249,6 +278,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. SEMA AYDIN</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'İŞ HUKUKU', teacher:'DOÇ. DR. SEMA AYDIN', room:'D211', day:'ÇARŞAMBA', hour:'09.00-12.00', classInfo:'İŞLETME TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESİ MİRAY BAYBARS" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="4. SINIF">
@@ -257,6 +287,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESİ MİRAY BAYBARS</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">4. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'RETAILING II', teacher:'DR. ÖĞR. ÜYESİ MİRAY BAYBARS', room:'Z17', day:'ÇARŞAMBA', hour:'09.00-12.00', classInfo:'4. SINIF', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. BURCU ARACIOĞLU" data-day="ÇARŞAMBA" data-status="ZORUNLU" data-sinif="ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER TEZLİ YÜKSEK LİSANS">
@@ -265,6 +296,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. BURCU ARACIOĞLU</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'BİLİMSEL ARAŞTIRMA YÖNTEMLERİ VE ETİK', teacher:'PROF. DR. BURCU ARACIOĞLU', room:'D302', day:'ÇARŞAMBA', hour:'09.00-12.00', classInfo:'ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER TEZLİ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. DILEK DEMİRHAN" data-day="ÇARŞAMBA" data-status="ZORUNLU" data-sinif="3. SINIF">
@@ -273,6 +305,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. DILEK DEMİRHAN</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">3. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'FINANCIAL MANAGEMENT II', teacher:'PROF. DR. DILEK DEMİRHAN', room:'D104', day:'ÇARŞAMBA', hour:'09.00-12.00', classInfo:'3. SINIF', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. G. NAZAN GÜNAY" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
@@ -281,6 +314,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. G. NAZAN GÜNAY</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'BÜTÜNLEŞİK PAZARLAMA İLETİŞİMİ', teacher:'PROF. DR. G. NAZAN GÜNAY', room:'D301', day:'ÇARŞAMBA', hour:'09.00-12.00', classInfo:'İŞLETME TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. G. NAZAN GÜNAY" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="PAZARLAMA TEZLİ YÜKSEK LİSANS">
@@ -289,6 +323,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. G. NAZAN GÜNAY</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">PAZARLAMA TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'BÜTÜNLEŞİK PAZARLAMA İLETİŞİMİ', teacher:'PROF. DR. G. NAZAN GÜNAY', room:'D301', day:'ÇARŞAMBA', hour:'09.00-12.00', classInfo:'PAZARLAMA TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. HAYDAR YALÇIN" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="4. SINIF">
@@ -297,6 +332,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. HAYDAR YALÇIN</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">4. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'AI LITERACY ', teacher:'PROF. DR. HAYDAR YALÇIN', room:'D105', day:'ÇARŞAMBA', hour:'09.00-12.00', classInfo:'4. SINIF', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
@@ -305,6 +341,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'DEĞİŞEN YÖNETİM ROLLERİ: LİDERLİK KOÇLUK VE MENTORLUK', teacher:'PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ', room:'D111', day:'ÇARŞAMBA', hour:'09.00-12.00', classInfo:'İŞLETME TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     </td><td>
                     <div class="lesson-card" data-teacher="DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="3. SINIF">
@@ -313,6 +350,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">3. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'STRATEGIC BRAND MANAGEMENT', teacher:'DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN', room:'D111', day:'PERŞEMBE', hour:'09.00-12.00', classInfo:'3. SINIF', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="4. SINIF">
@@ -321,6 +359,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">4. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'STRATEGIC BRAND MANAGEMENT', teacher:'DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN', room:'D111', day:'PERŞEMBE', hour:'09.00-12.00', classInfo:'4. SINIF', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. İNANÇ KABASAKAL" data-day="PERŞEMBE" data-status="ZORUNLU" data-sinif="1. SINIF">
@@ -329,6 +368,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. İNANÇ KABASAKAL</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">1. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'COMPUTER COURSE (ÇIFTLER)', teacher:'DOÇ. DR. İNANÇ KABASAKAL', room:'Lab', day:'PERŞEMBE', hour:'09.00-12.00', classInfo:'1. SINIF', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. AYKAN CANDEMİR" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="3. SINIF">
@@ -337,6 +377,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. AYKAN CANDEMİR</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">3. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'E-MARKETING', teacher:'PROF. DR. AYKAN CANDEMİR', room:'D102', day:'PERŞEMBE', hour:'09.00-12.00', classInfo:'3. SINIF', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. AYKAN CANDEMİR" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="4. SINIF">
@@ -345,6 +386,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. AYKAN CANDEMİR</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">4. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'E-MARKETING', teacher:'PROF. DR. AYKAN CANDEMİR', room:'D102', day:'PERŞEMBE', hour:'09.00-12.00', classInfo:'4. SINIF', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. BURAK ÇAPRAZ" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
@@ -353,6 +395,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. BURAK ÇAPRAZ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'İLERI ÖRGÜT KURAMI', teacher:'PROF. DR. BURAK ÇAPRAZ', room:'D105', day:'PERŞEMBE', hour:'09.00-12.00', classInfo:'İŞLETME DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. BURAK ÇAPRAZ" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="YÖNETİM BİLİMİ VE ORGANİZASYON DOKTORA">
@@ -361,6 +404,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. BURAK ÇAPRAZ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">YÖNETİM BİLİMİ VE ORGANİZASYON DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'İLERİ ÖRGÜT KURAMI', teacher:'PROF. DR. BURAK ÇAPRAZ', room:'D105', day:'PERŞEMBE', hour:'09.00-12.00', classInfo:'YÖNETİM BİLİMİ VE ORGANİZASYON DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. DILEK DEMİRHAN" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
@@ -369,6 +413,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. DILEK DEMİRHAN</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'FINANS YÖNETIMINDE GÜNCEL KONULAR VE YAKLAŞIMLAR', teacher:'PROF. DR. DILEK DEMİRHAN', room:'D301', day:'PERŞEMBE', hour:'09.00-12.00', classInfo:'İŞLETME DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. İPEK KAZANÇOĞLU" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="3. SINIF">
@@ -377,6 +422,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. İPEK KAZANÇOĞLU</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">3. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'ENDÜSTRIYEL PAZARLAMA', teacher:'PROF. DR. İPEK KAZANÇOĞLU', room:'D103', day:'PERŞEMBE', hour:'09.00-12.00', classInfo:'3. SINIF', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. İPEK KAZANÇOĞLU" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="4. SINIF">
@@ -385,6 +431,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. İPEK KAZANÇOĞLU</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">4. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'ENDÜSTRIYEL PAZARLAMA', teacher:'PROF. DR. İPEK KAZANÇOĞLU', room:'D103', day:'PERŞEMBE', hour:'09.00-12.00', classInfo:'4. SINIF', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. KETİ VENTURA" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
@@ -393,6 +440,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. KETİ VENTURA</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'KÜRESELLEŞME VE PAZAR DINAMIKLERI', teacher:'PROF. DR. KETİ VENTURA', room:'D302', day:'PERŞEMBE', hour:'09.00-12.00', classInfo:'İŞLETME DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. KETİ VENTURA" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="PAZARLAMA DOKTORA">
@@ -401,6 +449,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. KETİ VENTURA</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">PAZARLAMA DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'KÜRESELLEŞME VE PAZAR DINAMIKLERI', teacher:'PROF. DR. KETİ VENTURA', room:'D302', day:'PERŞEMBE', hour:'09.00-12.00', classInfo:'PAZARLAMA DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. MURAT KOCAMAZ" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
@@ -409,6 +458,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. MURAT KOCAMAZ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'İLERI ÜRETIM PLANLAMA', teacher:'PROF. DR. MURAT KOCAMAZ', room:'D211', day:'PERŞEMBE', hour:'09.00-12.00', classInfo:'İŞLETME DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. MURAT KOCAMAZ" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER DOKTORA">
@@ -417,6 +467,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. MURAT KOCAMAZ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'İLERİ ÜRETİM PLANLAMA', teacher:'PROF. DR. MURAT KOCAMAZ', room:'D211', day:'PERŞEMBE', hour:'09.00-12.00', classInfo:'ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     </td><td>
                     <div class="lesson-card" data-teacher="ARAŞ. GÖR. DR. BEGÜM KANAT TİRYAKİ" data-day="CUMA" data-status="ZORUNLU" data-sinif="3. SINIF">
@@ -425,6 +476,7 @@
                         👨‍🏫 <span class="teacher-name">ARAŞ. GÖR. DR. BEGÜM KANAT TİRYAKİ</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">3. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'ORGANIZATIONAL THEORY', teacher:'ARAŞ. GÖR. DR. BEGÜM KANAT TİRYAKİ', room:'D102', day:'CUMA', hour:'09.00-12.00', classInfo:'3. SINIF', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU" data-day="CUMA" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
@@ -433,6 +485,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'BÜTÜNLEŞIK PAZARLAMA İLETIŞIM VE YENI MEDYA', teacher:'DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU', room:'D302', day:'CUMA', hour:'09.00-12.00', classInfo:'İŞLETME DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU" data-day="CUMA" data-status="SEÇMELİ" data-sinif="PAZARLAMA DOKTORA">
@@ -441,6 +494,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">PAZARLAMA DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'BÜTÜNLEŞIK PAZARLAMA İLETIŞIM VE YENI MEDYA', teacher:'DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU', room:'D302', day:'CUMA', hour:'09.00-12.00', classInfo:'PAZARLAMA DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESİ MİRAY BAYBARS" data-day="CUMA" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
@@ -449,6 +503,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESİ MİRAY BAYBARS</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'PAZARLAMADA ELEŞTİREL YAKLAŞIMLAR', teacher:'DR. ÖĞR. ÜYESİ MİRAY BAYBARS', room:'D211', day:'CUMA', hour:'09.00-12.00', classInfo:'İŞLETME TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESİ MİRAY BAYBARS" data-day="CUMA" data-status="SEÇMELİ" data-sinif="PAZARLAMA TEZLİ YÜKSEK LİSANS">
@@ -457,6 +512,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESİ MİRAY BAYBARS</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">PAZARLAMA TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'PAZARLAMADA ELEŞTİREL YAKLAŞIMLAR', teacher:'DR. ÖĞR. ÜYESİ MİRAY BAYBARS', room:'D211', day:'CUMA', hour:'09.00-12.00', classInfo:'PAZARLAMA TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. AYKAN CANDEMİR" data-day="CUMA" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
@@ -465,6 +521,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. AYKAN CANDEMİR</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'STRATEJİK MARKA YÖNETİMİ', teacher:'PROF. DR. AYKAN CANDEMİR', room:'D104', day:'CUMA', hour:'09.00-12.00', classInfo:'İŞLETME TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. AYKAN CANDEMİR" data-day="CUMA" data-status="SEÇMELİ" data-sinif="PAZARLAMA TEZLİ YÜKSEK LİSANS">
@@ -473,6 +530,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. AYKAN CANDEMİR</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">PAZARLAMA TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'STRATEJİK MARKA YÖNETİMİ', teacher:'PROF. DR. AYKAN CANDEMİR', room:'D104', day:'CUMA', hour:'09.00-12.00', classInfo:'PAZARLAMA TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. DERYA İLİC" data-day="CUMA" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
@@ -481,6 +539,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. DERYA İLİC</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'ÖRGÜTLERIN PSIKODINAMIKLERI VE ÖRGÜTSEL PSIKANALIZ', teacher:'PROF. DR. DERYA İLİC', room:'D301', day:'CUMA', hour:'09.00-12.00', classInfo:'İŞLETME DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. DERYA İLİC" data-day="CUMA" data-status="SEÇMELİ" data-sinif="YÖNETİM BİLİMİ VE ORGANİZASYON DOKTORA">
@@ -489,6 +548,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. DERYA İLİC</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">YÖNETİM BİLİMİ VE ORGANİZASYON DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'ÖRGÜTLERİN PSİKODİNAMİKLERİ VE ÖRGÜTSEL PSİKANALİZ', teacher:'PROF. DR. DERYA İLİC', room:'D103', day:'CUMA', hour:'09.00-12.00', classInfo:'YÖNETİM BİLİMİ VE ORGANİZASYON DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. İPEK KAZANÇOĞLU" data-day="CUMA" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
@@ -497,6 +557,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. İPEK KAZANÇOĞLU</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'STRATEJIK PERAKENDE YÖNETIMI', teacher:'PROF. DR. İPEK KAZANÇOĞLU', room:'D105', day:'CUMA', hour:'09.00-12.00', classInfo:'İŞLETME DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. İPEK KAZANÇOĞLU" data-day="CUMA" data-status="SEÇMELİ" data-sinif="PAZARLAMA DOKTORA">
@@ -505,6 +566,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. İPEK KAZANÇOĞLU</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">PAZARLAMA DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'STRATEJIK PERAKENDE YÖNETIMI', teacher:'PROF. DR. İPEK KAZANÇOĞLU', room:'D105', day:'CUMA', hour:'09.00-12.00', classInfo:'PAZARLAMA DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. MURAT KOCAMAZ" data-day="CUMA" data-status="ZORUNLU" data-sinif="ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER TEZLİ YÜKSEK LİSANS">
@@ -513,6 +575,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. MURAT KOCAMAZ</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'ÜRETİM PLANLAMA', teacher:'PROF. DR. MURAT KOCAMAZ', room:'D301', day:'CUMA', hour:'09.00-12.00', classInfo:'ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER TEZLİ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     </td></tr><tr><td class='time-cell'>13.00-16.00</td><td>
                     <div class="lesson-card" data-teacher="DOÇ. DR. BURCU ŞENTÜRK YILDIZ" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
@@ -521,6 +584,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. BURCU ŞENTÜRK YILDIZ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'İLERİ BİLİMSEL ARAŞTIRMA YÖNTEMLERİ', teacher:'DOÇ. DR. BURCU ŞENTÜRK YILDIZ', room:'D111', day:'PAZARTESI', hour:'13.00-16.00', classInfo:'İŞLETME TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. BURCU ŞENTÜRK YILDIZ" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="YÖNETİM VE ORGANİZASYON TEZLİ YÜKSEK LİSANS">
@@ -529,6 +593,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. BURCU ŞENTÜRK YILDIZ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">YÖNETİM VE ORGANİZASYON TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'İLERİ BİLİMSEL ARAŞTIRMA YÖNTEMLERİ', teacher:'DOÇ. DR. BURCU ŞENTÜRK YILDIZ', room:'D111', day:'PAZARTESI', hour:'13.00-16.00', classInfo:'YÖNETİM VE ORGANİZASYON TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. U. GÖKAY ÇİÇEKLİ" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="3. SINIF">
@@ -537,6 +602,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. U. GÖKAY ÇİÇEKLİ</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">3. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'COMPUTER-AIDED PRODUCTION MANAGEMENT (TEKLER)', teacher:'DOÇ. DR. U. GÖKAY ÇİÇEKLİ', room:'Lab', day:'PAZARTESI', hour:'13.00-16.00', classInfo:'3. SINIF', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI HAKAN ERKAL" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
@@ -545,6 +611,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI HAKAN ERKAL</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'ELEŞTIREL YÖNETIM ÇALIŞMALARI', teacher:'DR. ÖĞR. ÜYESI HAKAN ERKAL', room:'D211', day:'PAZARTESI', hour:'13.00-16.00', classInfo:'İŞLETME DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI HAKAN ERKAL" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="YÖNETİM BİLİMİ VE ORGANİZASYON DOKTORA">
@@ -553,6 +620,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI HAKAN ERKAL</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">YÖNETİM BİLİMİ VE ORGANİZASYON DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'ELEŞTİREL YÖNETİM ÇALIŞMALARI', teacher:'DR. ÖĞR. ÜYESI HAKAN ERKAL', room:'D211', day:'PAZARTESI', hour:'13.00-16.00', classInfo:'YÖNETİM BİLİMİ VE ORGANİZASYON DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. AYLA ÖZHAN DEDEOĞLU" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
@@ -561,6 +629,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. AYLA ÖZHAN DEDEOĞLU</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'BILIM FELSEFESI', teacher:'PROF. DR. AYLA ÖZHAN DEDEOĞLU', room:'D301', day:'PAZARTESI', hour:'13.00-16.00', classInfo:'İŞLETME DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. AYLA ÖZHAN DEDEOĞLU" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="PAZARLAMA DOKTORA">
@@ -569,6 +638,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. AYLA ÖZHAN DEDEOĞLU</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">PAZARLAMA DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'BILIM FELSEFESI', teacher:'PROF. DR. AYLA ÖZHAN DEDEOĞLU', room:'D301', day:'PAZARTESI', hour:'13.00-16.00', classInfo:'PAZARLAMA DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. BURAK ÇAPRAZ" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="4. SINIF">
@@ -577,6 +647,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. BURAK ÇAPRAZ</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">4. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'STRATEGIC MANAGEMENT AND BUSINESS POLICY', teacher:'PROF. DR. BURAK ÇAPRAZ', room:'D105', day:'PAZARTESI', hour:'13.00-16.00', classInfo:'4. SINIF', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. BURCU ARACIOĞLU" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER DOKTORA">
@@ -585,6 +656,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. BURCU ARACIOĞLU</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'STRATEJİK YENİLİK YÖNETİMİ', teacher:'PROF. DR. BURCU ARACIOĞLU', room:'D302', day:'PAZARTESI', hour:'13.00-16.00', classInfo:'ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. G. NAZAN GÜNAY" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="2. SINIF">
@@ -593,6 +665,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. G. NAZAN GÜNAY</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">2. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'MARKETING MANAGEMENT II', teacher:'PROF. DR. G. NAZAN GÜNAY', room:'D102', day:'PAZARTESI', hour:'13.00-16.00', classInfo:'2. SINIF', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. HAYDAR YALÇIN" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
@@ -601,6 +674,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. HAYDAR YALÇIN</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'TEKNOLOJIDE İLERI GÖRÜŞ', teacher:'PROF. DR. HAYDAR YALÇIN', room:'D206', day:'PAZARTESI', hour:'13.00-16.00', classInfo:'İŞLETME DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. İPEK KAZANÇOĞLU" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
@@ -609,6 +683,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. İPEK KAZANÇOĞLU</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'PERAKENDE PAZARLAMA YÖNETİMİ', teacher:'PROF. DR. İPEK KAZANÇOĞLU', room:'D103', day:'PAZARTESI', hour:'13.00-16.00', classInfo:'İŞLETME TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. İPEK KAZANÇOĞLU" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="PAZARLAMA TEZLİ YÜKSEK LİSANS">
@@ -617,6 +692,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. İPEK KAZANÇOĞLU</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">PAZARLAMA TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'PERAKENDE PAZARLAMA YÖNETİMİ', teacher:'PROF. DR. İPEK KAZANÇOĞLU', room:'D103', day:'PAZARTESI', hour:'13.00-16.00', classInfo:'PAZARLAMA TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     </td><td>
                     <div class="lesson-card" data-teacher="ARAŞ. GÖR. DR. ÖZGÜR BABACAN" data-day="SALI" data-status="ZORUNLU" data-sinif="2. SINIF">
@@ -625,6 +701,7 @@
                         👨‍🏫 <span class="teacher-name">ARAŞ. GÖR. DR. ÖZGÜR BABACAN</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">2. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'MUHASEBE II', teacher:'ARAŞ. GÖR. DR. ÖZGÜR BABACAN', room:'D105', day:'SALI', hour:'13.00-16.00', classInfo:'2. SINIF', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. İNANÇ KABASAKAL" data-day="SALI" data-status="ZORUNLU" data-sinif="3. SINIF">
@@ -633,6 +710,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. İNANÇ KABASAKAL</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">3. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'COMPUTER-AIDED PRODUCTION MANAGEMENT (ÇIFTLER)', teacher:'DOÇ. DR. İNANÇ KABASAKAL', room:'Lab', day:'SALI', hour:'13.00-16.00', classInfo:'3. SINIF', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI ESIN GÜRBÜZ" data-day="SALI" data-status="ZORUNLU" data-sinif="1. SINIF">
@@ -641,6 +719,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI ESIN GÜRBÜZ</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">1. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'HUKUKUN TEMEL KAVRAMLARI', teacher:'DR. ÖĞR. ÜYESI ESIN GÜRBÜZ', room:'D104', day:'SALI', hour:'13.00-16.00', classInfo:'1. SINIF', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI HAKAN ERKAL" data-day="SALI" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
@@ -649,6 +728,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI HAKAN ERKAL</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'ÖRGÜT TEORİSİ', teacher:'DR. ÖĞR. ÜYESI HAKAN ERKAL', room:'D311', day:'SALI', hour:'13.00-16.00', classInfo:'İŞLETME TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI HAKAN ERKAL" data-day="SALI" data-status="SEÇMELİ" data-sinif="YÖNETİM VE ORGANİZASYON TEZLİ YÜKSEK LİSANS">
@@ -657,6 +737,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI HAKAN ERKAL</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">YÖNETİM VE ORGANİZASYON TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'ÖRGÜT TEORİSİ', teacher:'DR. ÖĞR. ÜYESI HAKAN ERKAL', room:'D301', day:'SALI', hour:'13.00-16.00', classInfo:'YÖNETİM VE ORGANİZASYON TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. DERYA İLİC" data-day="SALI" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
@@ -665,6 +746,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. DERYA İLİC</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'ULUSLARARASI YÖNETİM', teacher:'PROF. DR. DERYA İLİC', room:'D211', day:'SALI', hour:'13.00-16.00', classInfo:'İŞLETME TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. DERYA İLİC" data-day="SALI" data-status="SEÇMELİ" data-sinif="YÖNETİM VE ORGANİZASYON TEZLİ YÜKSEK LİSANS">
@@ -673,6 +755,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. DERYA İLİC</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">YÖNETİM VE ORGANİZASYON TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'ULUSLARARASI YÖNETİM', teacher:'PROF. DR. DERYA İLİC', room:'D211', day:'SALI', hour:'13.00-16.00', classInfo:'YÖNETİM VE ORGANİZASYON TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. HALUK SOYUER" data-day="SALI" data-status="SEÇMELİ" data-sinif="3. SINIF">
@@ -681,6 +764,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. HALUK SOYUER</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">3. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'TEKNOLOJI VE SANAYI DINAMIKLERI', teacher:'PROF. DR. HALUK SOYUER', room:'D303', day:'SALI', hour:'13.00-16.00', classInfo:'3. SINIF', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. HALUK SOYUER" data-day="SALI" data-status="SEÇMELİ" data-sinif="4. SINIF">
@@ -689,6 +773,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. HALUK SOYUER</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">4. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'TEKNOLOJI VE SANAYI DINAMIKLERI', teacher:'PROF. DR. HALUK SOYUER', room:'D303', day:'SALI', hour:'13.00-16.00', classInfo:'4. SINIF', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. HAYDAR YALÇIN" data-day="SALI" data-status="ZORUNLU" data-sinif="4. SINIF">
@@ -697,6 +782,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. HAYDAR YALÇIN</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">4. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'MANAGEMENT INFORMATION SYSTEMS', teacher:'PROF. DR. HAYDAR YALÇIN', room:'D102', day:'SALI', hour:'13.00-16.00', classInfo:'4. SINIF', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. KETİ VENTURA" data-day="SALI" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
@@ -705,6 +791,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. KETİ VENTURA</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'KÜRESEL PAZARLAMA', teacher:'PROF. DR. KETİ VENTURA', room:'D103', day:'SALI', hour:'13.00-16.00', classInfo:'İŞLETME TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. KETİ VENTURA" data-day="SALI" data-status="SEÇMELİ" data-sinif="PAZARLAMA TEZLİ YÜKSEK LİSANS">
@@ -713,6 +800,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. KETİ VENTURA</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">PAZARLAMA TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'KÜRESEL PAZARLAMA', teacher:'PROF. DR. KETİ VENTURA', room:'D103', day:'SALI', hour:'13.00-16.00', classInfo:'PAZARLAMA TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ" data-day="SALI" data-status="SEÇMELİ" data-sinif="3. SINIF">
@@ -721,6 +809,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">3. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'KURUMSAL KOÇLUK VE MENTÖRLÜK', teacher:'PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ', room:'D111', day:'SALI', hour:'13.00-16.00', classInfo:'3. SINIF', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ" data-day="SALI" data-status="SEÇMELİ" data-sinif="4. SINIF">
@@ -729,6 +818,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">4. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'KURUMSAL KOÇLUK VE MENTÖRLÜK', teacher:'PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ', room:'D111', day:'SALI', hour:'13.00-16.00', classInfo:'4. SINIF', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     </td><td>
                     <div class="lesson-card" data-teacher="DOÇ. DR. AYDIN KOÇAK" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
@@ -737,6 +827,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. AYDIN KOÇAK</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'PROJE YÖNETİMİ', teacher:'DOÇ. DR. AYDIN KOÇAK', room:'D211', day:'ÇARŞAMBA', hour:'13.00-16.00', classInfo:'İŞLETME TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. AYDIN KOÇAK" data-day="ÇARŞAMBA" data-status="ZORUNLU" data-sinif="ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER TEZLİ YÜKSEK LİSANS">
@@ -745,6 +836,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. AYDIN KOÇAK</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'PROJE YÖNETİMİ', teacher:'DOÇ. DR. AYDIN KOÇAK', room:'D211', day:'ÇARŞAMBA', hour:'13.00-16.00', classInfo:'ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER TEZLİ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
@@ -753,6 +845,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'ELEŞTIREL PAZARLAMA OKUMALARI', teacher:'DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN', room:'D103', day:'ÇARŞAMBA', hour:'13.00-16.00', classInfo:'İŞLETME DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="PAZARLAMA DOKTORA">
@@ -761,6 +854,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">PAZARLAMA DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'ELEŞTIREL PAZARLAMA OKUMALARI', teacher:'DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN', room:'D103', day:'ÇARŞAMBA', hour:'13.00-16.00', classInfo:'PAZARLAMA DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
@@ -769,6 +863,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'STRATEJİK İŞLETME FİNANSI', teacher:'DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI', room:'D301', day:'ÇARŞAMBA', hour:'13.00-16.00', classInfo:'İŞLETME TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. AYLA ÖZHAN DEDEOĞLU" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="4. SINIF">
@@ -777,6 +872,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. AYLA ÖZHAN DEDEOĞLU</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">4. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'CURRENT ISSUES IN MARKETING', teacher:'PROF. DR. AYLA ÖZHAN DEDEOĞLU', room:'D111', day:'ÇARŞAMBA', hour:'13.00-16.00', classInfo:'4. SINIF', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. BURCU ARACIOĞLU" data-day="ÇARŞAMBA" data-status="ZORUNLU" data-sinif="2. SINIF">
@@ -785,6 +881,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. BURCU ARACIOĞLU</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">2. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'OPERATIONS MANAGEMENT II', teacher:'PROF. DR. BURCU ARACIOĞLU', room:'D104', day:'ÇARŞAMBA', hour:'13.00-16.00', classInfo:'2. SINIF', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. G. NAZAN GÜNAY" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
@@ -793,6 +890,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. G. NAZAN GÜNAY</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'TÜKETICI DAVRANIŞLARI VE TÜKETIM KÜLTÜRÜ TEORILERI', teacher:'PROF. DR. G. NAZAN GÜNAY', room:'D302', day:'ÇARŞAMBA', hour:'13.00-16.00', classInfo:'İŞLETME DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. G. NAZAN GÜNAY" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="PAZARLAMA DOKTORA">
@@ -801,6 +899,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. G. NAZAN GÜNAY</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">PAZARLAMA DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'TÜKETICI DAVRANIŞLARI VE TÜKETIM KÜLTÜRÜ TEORILERI', teacher:'PROF. DR. G. NAZAN GÜNAY', room:'D301', day:'ÇARŞAMBA', hour:'13.00-16.00', classInfo:'PAZARLAMA DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. HAYDAR YALÇIN" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
@@ -809,6 +908,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. HAYDAR YALÇIN</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'TEKNOLOJİNİN GELECEĞİ', teacher:'PROF. DR. HAYDAR YALÇIN', room:'D206', day:'ÇARŞAMBA', hour:'13.00-16.00', classInfo:'İŞLETME TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. MEHMET KARAÇUKA" data-day="ÇARŞAMBA" data-status="ZORUNLU" data-sinif="1. SINIF">
@@ -817,6 +917,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. MEHMET KARAÇUKA</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">1. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'INTRODUCTION TO MACROECONOMICS', teacher:'PROF. DR. MEHMET KARAÇUKA', room:'D102', day:'ÇARŞAMBA', hour:'13.00-16.00', classInfo:'1. SINIF', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     </td><td>
                     <div class="lesson-card" data-teacher="DOÇ. DR. AYDIN KOÇAK" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
@@ -825,6 +926,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. AYDIN KOÇAK</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'ÜRETIM BILIŞIM SISTEMLERI', teacher:'DOÇ. DR. AYDIN KOÇAK', room:'D302', day:'PERŞEMBE', hour:'13.00-16.00', classInfo:'İŞLETME DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. AYDIN KOÇAK" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER DOKTORA">
@@ -833,6 +935,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. AYDIN KOÇAK</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'ÜRETİM BİLİŞİM SİSTEMLERİ', teacher:'DOÇ. DR. AYDIN KOÇAK', room:'D302', day:'PERŞEMBE', hour:'13.00-16.00', classInfo:'ÜRETİM YÖNETİMİ VE SAYISAL YÖNTEMLER DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. İNANÇ KABASAKAL" data-day="PERŞEMBE" data-status="ZORUNLU" data-sinif="1. SINIF">
@@ -841,6 +944,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. İNANÇ KABASAKAL</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">1. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'COMPUTER COURSE (TEKLER)', teacher:'DOÇ. DR. İNANÇ KABASAKAL', room:'Lab', day:'PERŞEMBE', hour:'13.00-16.00', classInfo:'1. SINIF', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. U. GÖKAY ÇİÇEKLİ" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
@@ -849,6 +953,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. U. GÖKAY ÇİÇEKLİ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'TEKNOLOJİ YÖNETİMİ VE KARAR VERME', teacher:'DOÇ. DR. U. GÖKAY ÇİÇEKLİ', room:'D301', day:'PERŞEMBE', hour:'13.00-16.00', classInfo:'İŞLETME TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESİ MİRAY BAYBARS" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="4. SINIF">
@@ -857,6 +962,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESİ MİRAY BAYBARS</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">4. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'MARKETING STRATEGY', teacher:'DR. ÖĞR. ÜYESİ MİRAY BAYBARS', room:'D103', day:'PERŞEMBE', hour:'13.00-16.00', classInfo:'4. SINIF', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
@@ -865,6 +971,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'SERMAYE PIYASASI TEORISI VE YATIRIM ANALIZI', teacher:'DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI', room:'D102', day:'PERŞEMBE', hour:'13.00-16.00', classInfo:'İŞLETME DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="ARAŞ. GÖR. DR. ÖZGÜR BABACAN" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
@@ -873,6 +980,7 @@
                         👨‍🏫 <span class="teacher-name">ARAŞ. GÖR. DR. ÖZGÜR BABACAN</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'ULUSLARARASI FİNANS', teacher:'ARAŞ. GÖR. DR. ÖZGÜR BABACAN', room:'D211', day:'PERŞEMBE', hour:'13.00-16.00', classInfo:'İŞLETME TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. AYKAN CANDEMİR" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
@@ -881,6 +989,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. AYKAN CANDEMİR</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'MARKA YÖNETIMINDE GÜNCEL YAKLAŞIMLAR', teacher:'PROF. DR. AYKAN CANDEMİR', room:'D111', day:'PERŞEMBE', hour:'13.00-16.00', classInfo:'İŞLETME DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. AYKAN CANDEMİR" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="PAZARLAMA DOKTORA">
@@ -889,6 +998,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. AYKAN CANDEMİR</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">PAZARLAMA DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'MARKA YÖNETIMINDE GÜNCEL YAKLAŞIMLAR', teacher:'PROF. DR. AYKAN CANDEMİR', room:'D111', day:'PERŞEMBE', hour:'13.00-16.00', classInfo:'PAZARLAMA DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. AYLA ÖZHAN DEDEOĞLU" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="İŞLETME TEZLİ YÜKSEK LİSANS">
@@ -897,6 +1007,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. AYLA ÖZHAN DEDEOĞLU</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'TÜKETİM KÜLTÜRÜ TEORİLERİ', teacher:'PROF. DR. AYLA ÖZHAN DEDEOĞLU', room:'D303', day:'PERŞEMBE', hour:'13.00-16.00', classInfo:'İŞLETME TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. AYLA ÖZHAN DEDEOĞLU" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="PAZARLAMA TEZLİ YÜKSEK LİSANS">
@@ -905,6 +1016,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. AYLA ÖZHAN DEDEOĞLU</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">PAZARLAMA TEZLİ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'TÜKETİM KÜLTÜRÜ TEORİLERİ', teacher:'PROF. DR. AYLA ÖZHAN DEDEOĞLU', room:'D303', day:'PERŞEMBE', hour:'13.00-16.00', classInfo:'PAZARLAMA TEZLİ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. MURAT KOCAMAZ" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="4. SINIF">
@@ -913,6 +1025,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. MURAT KOCAMAZ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">4. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'NEW OPERATIONS SYSTEMS', teacher:'PROF. DR. MURAT KOCAMAZ', room:'D105', day:'PERŞEMBE', hour:'13.00-16.00', classInfo:'4. SINIF', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. TÜRKER SUSMUŞ" data-day="PERŞEMBE" data-status="ZORUNLU" data-sinif="3. SINIF">
@@ -921,6 +1034,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. TÜRKER SUSMUŞ</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">3. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'MALIYET MUHASEBESI', teacher:'PROF. DR. TÜRKER SUSMUŞ', room:'D104', day:'PERŞEMBE', hour:'13.00-16.00', classInfo:'3. SINIF', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     </td><td></td></tr><tr><td class='time-cell'>13.00-14.45</td><td>
                     <div class="lesson-card" data-teacher="DOÇ. DR. FATMA TEKİN" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="1. SINIF">
@@ -929,6 +1043,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. FATMA TEKİN</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">1. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'TÜRK DILI II', teacher:'DOÇ. DR. FATMA TEKİN', room:'D104', day:'PAZARTESI', hour:'13.00-14.45', classInfo:'1. SINIF', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     </td><td></td><td></td><td></td><td></td></tr><tr><td class='time-cell'>14.00-17.00</td><td></td><td></td><td>
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="4. SINIF">
@@ -937,6 +1052,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">4. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'RISK YÖNETIMI', teacher:'DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU', room:'D105', day:'ÇARŞAMBA', hour:'14.00-17.00', classInfo:'4. SINIF', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     </td><td></td><td>
                     <div class="lesson-card" data-teacher="DOÇ. DR. AYDIN KOÇAK" data-day="CUMA" data-status="SEÇMELİ" data-sinif="3. SINIF">
@@ -945,6 +1061,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. AYDIN KOÇAK</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">3. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'YENILIK YÖNETIMI', teacher:'DOÇ. DR. AYDIN KOÇAK', room:'D103', day:'CUMA', hour:'14.00-17.00', classInfo:'3. SINIF', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. AYDIN KOÇAK" data-day="CUMA" data-status="SEÇMELİ" data-sinif="4. SINIF">
@@ -953,6 +1070,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. AYDIN KOÇAK</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">4. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'YENILIK YÖNETIMI', teacher:'DOÇ. DR. AYDIN KOÇAK', room:'D103', day:'CUMA', hour:'14.00-17.00', classInfo:'4. SINIF', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU" data-day="CUMA" data-status="SEÇMELİ" data-sinif="3. SINIF">
@@ -961,6 +1079,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">3. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'UYGULAMALI DIŞ TICARET VE LOJISTIK', teacher:'DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU', room:'D211', day:'CUMA', hour:'14.00-17.00', classInfo:'3. SINIF', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU" data-day="CUMA" data-status="SEÇMELİ" data-sinif="4. SINIF">
@@ -969,6 +1088,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">4. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'UYGULAMALI DIŞ TICARET VE LOJISTIK', teacher:'DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU', room:'D211', day:'CUMA', hour:'14.00-17.00', classInfo:'4. SINIF', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI HAKAN ERKAL" data-day="CUMA" data-status="SEÇMELİ" data-sinif="3. SINIF">
@@ -977,6 +1097,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI HAKAN ERKAL</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">3. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'YÖNETIM FELSEFESI', teacher:'DR. ÖĞR. ÜYESI HAKAN ERKAL', room:'D105', day:'CUMA', hour:'14.00-17.00', classInfo:'3. SINIF', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI HAKAN ERKAL" data-day="CUMA" data-status="SEÇMELİ" data-sinif="4. SINIF">
@@ -985,6 +1106,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI HAKAN ERKAL</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">4. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'YÖNETIM FELSEFESI', teacher:'DR. ÖĞR. ÜYESI HAKAN ERKAL', room:'D105', day:'CUMA', hour:'14.00-17.00', classInfo:'4. SINIF', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. TÜRKER SUSMUŞ" data-day="CUMA" data-status="SEÇMELİ" data-sinif="3. SINIF">
@@ -993,6 +1115,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. TÜRKER SUSMUŞ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">3. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'UYGULAMALI FINANSAL PIYASA İŞLEMLERI', teacher:'PROF. DR. TÜRKER SUSMUŞ', room:'D104', day:'CUMA', hour:'14.00-17.00', classInfo:'3. SINIF', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. TÜRKER SUSMUŞ" data-day="CUMA" data-status="SEÇMELİ" data-sinif="4. SINIF">
@@ -1001,6 +1124,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. TÜRKER SUSMUŞ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">4. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'UYGULAMALI FINANSAL PIYASA İŞLEMLERI', teacher:'PROF. DR. TÜRKER SUSMUŞ', room:'D104', day:'CUMA', hour:'14.00-17.00', classInfo:'4. SINIF', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     </td></tr><tr><td class='time-cell'>14.00-16.00</td><td></td><td></td><td></td><td></td><td>
                     <div class="lesson-card" data-teacher="DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN" data-day="CUMA" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
@@ -1009,6 +1133,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'İLERI PAZARLAMA ARAŞTIRMALARI VE ANALIZI', teacher:'DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN', room:'D301', day:'CUMA', hour:'14.00-16.00', classInfo:'İŞLETME DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN" data-day="CUMA" data-status="SEÇMELİ" data-sinif="PAZARLAMA DOKTORA">
@@ -1017,6 +1142,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">PAZARLAMA DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'İLERI PAZARLAMA ARAŞTIRMALARI VE ANALIZI', teacher:'DOÇ. DR. ELİF ÜSTÜNDAĞLI ERTEN', room:'D301', day:'CUMA', hour:'14.00-16.00', classInfo:'PAZARLAMA DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI ESIN GÜRBÜZ" data-day="CUMA" data-status="SEÇMELİ" data-sinif="İŞLETME DOKTORA">
@@ -1025,6 +1151,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI ESIN GÜRBÜZ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME DOKTORA</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'REKABET POLITIKASI VE HUKUKU', teacher:'DR. ÖĞR. ÜYESI ESIN GÜRBÜZ', room:'D111', day:'CUMA', hour:'14.00-16.00', classInfo:'İŞLETME DOKTORA', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="ÖĞR. GÖR. DR. M. ALI DURMUŞ" data-day="CUMA" data-status="ZORUNLU" data-sinif="1. SINIF">
@@ -1033,6 +1160,7 @@
                         👨‍🏫 <span class="teacher-name">ÖĞR. GÖR. DR. M. ALI DURMUŞ</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">1. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'ATATÜRK İLKELERI VE İNKILAP TARIHI II', teacher:'ÖĞR. GÖR. DR. M. ALI DURMUŞ', room:'D102', day:'CUMA', hour:'14.00-16.00', classInfo:'1. SINIF', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     </td></tr><tr><td class='time-cell'>16.00-17.00</td><td></td><td>
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI ESIN GÜRBÜZ" data-day="SALI" data-status="ZORUNLU" data-sinif="1. SINIF">
@@ -1041,6 +1169,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI ESIN GÜRBÜZ</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">1. SINIF</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'ÇOCUK HAKLARI VE AILE EĞITIMI', teacher:'DR. ÖĞR. ÜYESI ESIN GÜRBÜZ', room:'D104', day:'SALI', hour:'16.00-17.00', classInfo:'1. SINIF', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     </td><td></td><td></td><td></td></tr><tr><td class='time-cell'>18.30-21.15</td><td>
                     <div class="lesson-card" data-teacher="DOÇ. DR. BURCU ŞENTÜRK YILDIZ" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1049,6 +1178,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. BURCU ŞENTÜRK YILDIZ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'ULUSLARARASI PIYASALAR ÖRGÜTLER VE TOPLUMSAL CINSIYET EŞITSIZLIĞI', teacher:'DOÇ. DR. BURCU ŞENTÜRK YILDIZ', room:'D210', day:'PAZARTESI', hour:'18.30-21.15', classInfo:'KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. U. GÖKAY ÇİÇEKLİ" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1057,6 +1187,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. U. GÖKAY ÇİÇEKLİ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'BİLİMSEL ARAŞTIRMA YÖNTEMLERİ VE ETİK', teacher:'DOÇ. DR. U. GÖKAY ÇİÇEKLİ', room:'D302', day:'PAZARTESI', hour:'18.30-21.15', classInfo:'ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1065,6 +1196,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'BILIMSEL ARAŞTIRMA YÖNTEMLERI VE ETIK (B GRUBU)', teacher:'DR. ÖĞR. ÜYESI A. ERHAN ZALLUHOĞLU', room:'D104', day:'PAZARTESI', hour:'18.30-21.15', classInfo:'İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI HAKAN ERKAL" data-day="PAZARTESI" data-status="SEÇMELİ" data-sinif="KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1073,6 +1205,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI HAKAN ERKAL</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'KÜRESELLEŞME ÜRETIM VE TOPLUM', teacher:'DR. ÖĞR. ÜYESI HAKAN ERKAL', room:'D211', day:'PAZARTESI', hour:'18.30-21.15', classInfo:'KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. BURCU ARACIOĞLU" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="UZAKTAN LOJİSTİK YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1081,6 +1214,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. BURCU ARACIOĞLU</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">UZAKTAN LOJİSTİK YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'İŞLETME LOJİSTİĞİ', teacher:'PROF. DR. BURCU ARACIOĞLU', room:'-', day:'PAZARTESI', hour:'18.30-21.15', classInfo:'UZAKTAN LOJİSTİK YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. G. NAZAN GÜNAY" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1089,6 +1223,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. G. NAZAN GÜNAY</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'MÜŞTERİ İLİŞKİLERİ VE SATIŞ YÖNETİMİ', teacher:'PROF. DR. G. NAZAN GÜNAY', room:'D102', day:'PAZARTESI', hour:'18.30-21.15', classInfo:'PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. İPEK KAZANÇOĞLU" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="UZAKTAN ÖĞRETİM İŞLETME TEZSİZ E- YÜKSEK LİSANS">
@@ -1097,6 +1232,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. İPEK KAZANÇOĞLU</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">UZAKTAN ÖĞRETİM İŞLETME TEZSİZ E- YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'BİLİMSEL ARAŞTIRMA YÖNTEMLERİ VE ETİK', teacher:'PROF. DR. İPEK KAZANÇOĞLU', room:'-', day:'PAZARTESI', hour:'18.30-21.15', classInfo:'UZAKTAN ÖĞRETİM İŞLETME TEZSİZ E- YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. KETİ VENTURA" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1105,6 +1241,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. KETİ VENTURA</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'BILIMSEL ARAŞTIRMA YÖNTEMLERI VE ETIK (A GRUBU)', teacher:'PROF. DR. KETİ VENTURA', room:'D111', day:'PAZARTESI', hour:'18.30-21.15', classInfo:'İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1113,6 +1250,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'LIDERLIK VE YÖNETICILIK GELIŞTIRME', teacher:'PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ', room:'D301', day:'PAZARTESI', hour:'18.30-21.15', classInfo:'İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. TÜRKER SUSMUŞ" data-day="PAZARTESI" data-status="ZORUNLU" data-sinif="MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1121,6 +1259,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. TÜRKER SUSMUŞ</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'STRATEJIK MALIYET YÖNETIMI', teacher:'PROF. DR. TÜRKER SUSMUŞ', room:'D105', day:'PAZARTESI', hour:'18.30-21.15', classInfo:'MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     </td><td>
                     <div class="lesson-card" data-teacher="DOÇ. DR. AYDIN KOÇAK" data-day="SALI" data-status="SEÇMELİ" data-sinif="UZAKTAN LOJİSTİK YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1129,6 +1268,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. AYDIN KOÇAK</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">UZAKTAN LOJİSTİK YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'PROJE YÖNETİMİ', teacher:'DOÇ. DR. AYDIN KOÇAK', room:'-', day:'SALI', hour:'18.30-21.15', classInfo:'UZAKTAN LOJİSTİK YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. SEMA AYDIN" data-day="SALI" data-status="SEÇMELİ" data-sinif="İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1137,6 +1277,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. SEMA AYDIN</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'İŞ HUKUKU', teacher:'DOÇ. DR. SEMA AYDIN', room:'D103', day:'SALI', hour:'18.30-21.15', classInfo:'İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. U. GÖKAY ÇİÇEKLİ" data-day="SALI" data-status="SEÇMELİ" data-sinif="İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1145,6 +1286,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. U. GÖKAY ÇİÇEKLİ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'YÖNETIMDE KARAR MODELLERI', teacher:'DOÇ. DR. U. GÖKAY ÇİÇEKLİ', room:'D301', day:'SALI', hour:'18.30-21.15', classInfo:'İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI" data-day="SALI" data-status="ZORUNLU" data-sinif="MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1153,6 +1295,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'STRATEJIK YÖNETIM MUHASEBESI', teacher:'DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI', room:'D105', day:'SALI', hour:'18.30-21.15', classInfo:'MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ" data-day="SALI" data-status="ZORUNLU" data-sinif="KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1161,6 +1304,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'LIDERLIK TEORILERI VE KURUMSAL LIDERLIK', teacher:'PROF. DR. NAZLI AYŞE AYYILDIZ ÜNNÜ', room:'D210', day:'SALI', hour:'18.30-21.15', classInfo:'KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. AYLA ÖZHAN DEDEOĞLU" data-day="SALI" data-status="ZORUNLU" data-sinif="PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1169,6 +1313,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. AYLA ÖZHAN DEDEOĞLU</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'BİLİMSEL ARAŞTIRMA YÖNTEMLERİ VE ETİK', teacher:'PROF. DR. AYLA ÖZHAN DEDEOĞLU', room:'LAB', day:'SALI', hour:'18.30-21.15', classInfo:'PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. BURAK ÇAPRAZ" data-day="SALI" data-status="ZORUNLU" data-sinif="İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1177,6 +1322,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. BURAK ÇAPRAZ</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'STRATEJIK YÖNETIM VE KURUMSALLAŞMA', teacher:'PROF. DR. BURAK ÇAPRAZ', room:'D111', day:'SALI', hour:'18.30-21.15', classInfo:'İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. DERYA İLİC" data-day="SALI" data-status="SEÇMELİ" data-sinif="İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1185,6 +1331,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. DERYA İLİC</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'YÖNETIM PSIKOLOJISI', teacher:'PROF. DR. DERYA İLİC', room:'D104', day:'SALI', hour:'18.30-21.15', classInfo:'İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. HALUK SOYUER" data-day="SALI" data-status="ZORUNLU" data-sinif="ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1193,6 +1340,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. HALUK SOYUER</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'İŞLETMELERDE DİJİTAL DÖNÜŞÜMÜN YÖNETİMİ', teacher:'PROF. DR. HALUK SOYUER', room:'D302', day:'SALI', hour:'18.30-21.15', classInfo:'ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. HAYDAR YALÇIN" data-day="SALI" data-status="ZORUNLU" data-sinif="UZAKTAN ÖĞRETİM İŞLETME TEZSİZ E- YÜKSEK LİSANS">
@@ -1201,6 +1349,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. HAYDAR YALÇIN</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">UZAKTAN ÖĞRETİM İŞLETME TEZSİZ E- YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'YÖNETİM BİLGİ SİSTEMLERİ', teacher:'PROF. DR. HAYDAR YALÇIN', room:'-', day:'SALI', hour:'18.30-21.15', classInfo:'UZAKTAN ÖĞRETİM İŞLETME TEZSİZ E- YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     </td><td>
                     <div class="lesson-card" data-teacher="DOÇ. DR. U. GÖKAY ÇİÇEKLİ" data-day="ÇARŞAMBA" data-status="ZORUNLU" data-sinif="UZAKTAN LOJİSTİK YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1209,6 +1358,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. U. GÖKAY ÇİÇEKLİ</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">UZAKTAN LOJİSTİK YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'LOJİSTİK PROBLEMLERİNDE PLANLAMA VE MODELLEME', teacher:'DOÇ. DR. U. GÖKAY ÇİÇEKLİ', room:'-', day:'ÇARŞAMBA', hour:'18.30-21.15', classInfo:'UZAKTAN LOJİSTİK YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI ESIN GÜRBÜZ" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1217,6 +1367,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI ESIN GÜRBÜZ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'İŞ HUKUKU', teacher:'DR. ÖĞR. ÜYESI ESIN GÜRBÜZ', room:'D111', day:'ÇARŞAMBA', hour:'18.30-21.15', classInfo:'İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI HAKAN ERKAL" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1225,6 +1376,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI HAKAN ERKAL</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'KÜRESELLEŞME VE ULUSLARARASI YÖNETIM', teacher:'DR. ÖĞR. ÜYESI HAKAN ERKAL', room:'D109', day:'ÇARŞAMBA', hour:'18.30-21.15', classInfo:'İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. AYLA ÖZHAN DEDEOĞLU" data-day="ÇARŞAMBA" data-status="ZORUNLU" data-sinif="PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1233,6 +1385,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. AYLA ÖZHAN DEDEOĞLU</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'KÜRESEL PAZARLAMA', teacher:'PROF. DR. AYLA ÖZHAN DEDEOĞLU', room:'D102', day:'ÇARŞAMBA', hour:'18.30-21.15', classInfo:'PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. BURAK ÇAPRAZ" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1241,6 +1394,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. BURAK ÇAPRAZ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'STRATEJIK YÖNETIM', teacher:'PROF. DR. BURAK ÇAPRAZ', room:'D103', day:'ÇARŞAMBA', hour:'18.30-21.15', classInfo:'İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. DERYA İLİC" data-day="ÇARŞAMBA" data-status="ZORUNLU" data-sinif="KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1249,6 +1403,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. DERYA İLİC</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'KURUMSAL YÖNETIM', teacher:'PROF. DR. DERYA İLİC', room:'D210', day:'ÇARŞAMBA', hour:'18.30-21.15', classInfo:'KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. DILEK DEMİRHAN" data-day="ÇARŞAMBA" data-status="ZORUNLU" data-sinif="MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1257,6 +1412,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. DILEK DEMİRHAN</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'DENETIM VE GÜVENCE HIZMETLERI', teacher:'PROF. DR. DILEK DEMİRHAN', room:'D105', day:'ÇARŞAMBA', hour:'18.30-21.15', classInfo:'MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. HALUK SOYUER" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="UZAKTAN ÖĞRETİM İŞLETME TEZSİZ E- YÜKSEK LİSANS">
@@ -1265,6 +1421,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. HALUK SOYUER</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">UZAKTAN ÖĞRETİM İŞLETME TEZSİZ E- YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'KURUMSAL KAYNAK PLANLAMA', teacher:'PROF. DR. HALUK SOYUER', room:'-', day:'ÇARŞAMBA', hour:'18.30-21.15', classInfo:'UZAKTAN ÖĞRETİM İŞLETME TEZSİZ E- YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. HAYDAR YALÇIN" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1273,6 +1430,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. HAYDAR YALÇIN</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'YAPAY ZEKÂ VE İŞLETMELER: STRATEJIK UYGULAMALAR', teacher:'PROF. DR. HAYDAR YALÇIN', room:'D104', day:'ÇARŞAMBA', hour:'18.30-21.15', classInfo:'İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. MURAT KOCAMAZ" data-day="ÇARŞAMBA" data-status="SEÇMELİ" data-sinif="ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1281,6 +1439,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. MURAT KOCAMAZ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'ÜRETİM ÇİZELGELEMEDE SEZGİSEL VE SAYISAL YAKLAŞIMLAR', teacher:'PROF. DR. MURAT KOCAMAZ', room:'D302', day:'ÇARŞAMBA', hour:'18.30-21.15', classInfo:'ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     </td><td>
                     <div class="lesson-card" data-teacher="ARAŞ. GÖR. DR. ÖZGÜR BABACAN" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1289,6 +1448,7 @@
                         👨‍🏫 <span class="teacher-name">ARAŞ. GÖR. DR. ÖZGÜR BABACAN</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'MUHASEBE VE FINANSTA KANTITATIF YÖNTEMLER', teacher:'ARAŞ. GÖR. DR. ÖZGÜR BABACAN', room:'D105', day:'PERŞEMBE', hour:'18.30-21.15', classInfo:'MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. AYDIN KOÇAK" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1297,6 +1457,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. AYDIN KOÇAK</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'STOK YÖNETİMİ', teacher:'DOÇ. DR. AYDIN KOÇAK', room:'D302', day:'PERŞEMBE', hour:'18.30-21.15', classInfo:'ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. BURCU ŞENTÜRK YILDIZ" data-day="PERŞEMBE" data-status="ZORUNLU" data-sinif="İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1305,6 +1466,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. BURCU ŞENTÜRK YILDIZ</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'GÜNCEL İNSAN KAYNAKLARI YÖNETIMI UYGULAMALARI', teacher:'DOÇ. DR. BURCU ŞENTÜRK YILDIZ', room:'D109', day:'PERŞEMBE', hour:'18.30-21.15', classInfo:'İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. İNANÇ KABASAKAL" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1313,6 +1475,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. İNANÇ KABASAKAL</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'ÜRETİM SÜREÇLERİNDE ANALİTİK YAKLAŞIMLAR', teacher:'DOÇ. DR. İNANÇ KABASAKAL', room:'LAB', day:'PERŞEMBE', hour:'18.30-21.15', classInfo:'ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI" data-day="PERŞEMBE" data-status="ZORUNLU" data-sinif="UZAKTAN ÖĞRETİM İŞLETME TEZSİZ E- YÜKSEK LİSANS">
@@ -1321,6 +1484,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">UZAKTAN ÖĞRETİM İŞLETME TEZSİZ E- YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'FİNANSAL YÖNETİM', teacher:'DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI', room:'-', day:'PERŞEMBE', hour:'18.30-21.15', classInfo:'UZAKTAN ÖĞRETİM İŞLETME TEZSİZ E- YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. AYLA ÖZHAN DEDEOĞLU" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1329,6 +1493,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. AYLA ÖZHAN DEDEOĞLU</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'STRATEJIK MARKA YÖNETIMI', teacher:'PROF. DR. AYLA ÖZHAN DEDEOĞLU', room:'D103', day:'PERŞEMBE', hour:'18.30-21.15', classInfo:'İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. BURCU ARACIOĞLU" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1337,6 +1502,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. BURCU ARACIOĞLU</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'TEDARIK ZINCIRI YÖNETIMI', teacher:'PROF. DR. BURCU ARACIOĞLU', room:'D301', day:'PERŞEMBE', hour:'18.30-21.15', classInfo:'İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. DILEK DEMİRHAN" data-day="PERŞEMBE" data-status="ZORUNLU" data-sinif="KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1345,6 +1511,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. DILEK DEMİRHAN</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'KURUMSAL DENETIM VE RISK YÖNETIMI', teacher:'PROF. DR. DILEK DEMİRHAN', room:'D210', day:'PERŞEMBE', hour:'18.30-21.15', classInfo:'KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. G. NAZAN GÜNAY" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1353,6 +1520,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. G. NAZAN GÜNAY</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'TÜKETICI DAVRANIŞLARI', teacher:'PROF. DR. G. NAZAN GÜNAY', room:'D111', day:'PERŞEMBE', hour:'18.30-21.15', classInfo:'İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. İPEK KAZANÇOĞLU" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1361,6 +1529,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. İPEK KAZANÇOĞLU</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'PAZARLAMADA GÜNCEL YAKLAŞIMLAR VE MARKA UYGULAMALARI', teacher:'PROF. DR. İPEK KAZANÇOĞLU', room:'D102', day:'PERŞEMBE', hour:'18.30-21.15', classInfo:'PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. KETİ VENTURA" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1369,6 +1538,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. KETİ VENTURA</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'PAZARLAMADA TEKNOLOJİ VE İNOVASYON YÖNETİMİ', teacher:'PROF. DR. KETİ VENTURA', room:'D211', day:'PERŞEMBE', hour:'18.30-21.15', classInfo:'PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. MURAT KOCAMAZ" data-day="PERŞEMBE" data-status="ZORUNLU" data-sinif="UZAKTAN LOJİSTİK YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1377,6 +1547,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. MURAT KOCAMAZ</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">UZAKTAN LOJİSTİK YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'DEPO VE DAĞITIM MERKEZLERİ YÖNETİMİ', teacher:'PROF. DR. MURAT KOCAMAZ', room:'-', day:'PERŞEMBE', hour:'18.30-21.15', classInfo:'UZAKTAN LOJİSTİK YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. TÜRKER SUSMUŞ" data-day="PERŞEMBE" data-status="SEÇMELİ" data-sinif="MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1385,6 +1556,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. TÜRKER SUSMUŞ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'ULUSLARARASI FINANSAL RAPORLAMA', teacher:'PROF. DR. TÜRKER SUSMUŞ', room:'D104', day:'PERŞEMBE', hour:'18.30-21.15', classInfo:'MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     </td><td>
                     <div class="lesson-card" data-teacher="ARAŞ. GÖR. DR. ÖZGÜR BABACAN" data-day="CUMA" data-status="SEÇMELİ" data-sinif="İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1393,6 +1565,7 @@
                         👨‍🏫 <span class="teacher-name">ARAŞ. GÖR. DR. ÖZGÜR BABACAN</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'MALI TABLOLARI OKUMAK VE ANLAMAK', teacher:'ARAŞ. GÖR. DR. ÖZGÜR BABACAN', room:'D104', day:'CUMA', hour:'18.30-21.15', classInfo:'İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DOÇ. DR. AYDIN KOÇAK" data-day="CUMA" data-status="SEÇMELİ" data-sinif="UZAKTAN ÖĞRETİM İŞLETME TEZSİZ E- YÜKSEK LİSANS">
@@ -1401,6 +1574,7 @@
                         👨‍🏫 <span class="teacher-name">DOÇ. DR. AYDIN KOÇAK</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">UZAKTAN ÖĞRETİM İŞLETME TEZSİZ E- YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'PROJE YÖNETİMİ', teacher:'DOÇ. DR. AYDIN KOÇAK', room:'-', day:'CUMA', hour:'18.30-21.15', classInfo:'UZAKTAN ÖĞRETİM İŞLETME TEZSİZ E- YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI" data-day="CUMA" data-status="ZORUNLU" data-sinif="MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1409,6 +1583,7 @@
                         👨‍🏫 <span class="teacher-name">DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'FINANSAL TABLOLAR ANALIZI', teacher:'DR. ÖĞR. ÜYESI Ş. SERTAÇ ÇAKI', room:'D105', day:'CUMA', hour:'18.30-21.15', classInfo:'MUHASEBE VE FİNANSMAN İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. AYKAN CANDEMİR" data-day="CUMA" data-status="ZORUNLU" data-sinif="PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1417,6 +1592,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. AYKAN CANDEMİR</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'STRATEJİK MARKA YÖNETİMİ', teacher:'PROF. DR. AYKAN CANDEMİR', room:'D102', day:'CUMA', hour:'18.30-21.15', classInfo:'PAZARLAMA VE MARKA YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. BURAK ÇAPRAZ" data-day="CUMA" data-status="ZORUNLU" data-sinif="KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1425,6 +1601,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. BURAK ÇAPRAZ</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'AILE İŞLETMELERINDE YÖNETIM VE KURUMSALLAŞMA', teacher:'PROF. DR. BURAK ÇAPRAZ', room:'D210', day:'CUMA', hour:'18.30-21.15', classInfo:'KURUMSAL YÖNETİŞİM VE LİDERLİK İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. BURCU ARACIOĞLU" data-day="CUMA" data-status="SEÇMELİ" data-sinif="ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1433,6 +1610,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. BURCU ARACIOĞLU</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'DİJİTALLEŞEN TEDARİK AĞLARI VE STRATEJİK ENTEGRASYON', teacher:'PROF. DR. BURCU ARACIOĞLU', room:'D302', day:'CUMA', hour:'18.30-21.15', classInfo:'ÜRETİM İŞLEMLER YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. DERYA İLİC" data-day="CUMA" data-status="ZORUNLU" data-sinif="İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1441,6 +1619,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. DERYA İLİC</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'ÖRGÜTSEL DEĞIŞIM YÖNETIMI VE YÖNETIM DANIŞMANLIĞI', teacher:'PROF. DR. DERYA İLİC', room:'D111', day:'CUMA', hour:'18.30-21.15', classInfo:'İNSAN KAYNAKLARI YÖNETİMİ VE YÖNETİM GELİŞTİRME İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. HALUK SOYUER" data-day="CUMA" data-status="ZORUNLU" data-sinif="UZAKTAN LOJİSTİK YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1449,6 +1628,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. HALUK SOYUER</span><br>
                         <span class="durum-info">📄 ZORUNLU</span>
                         <span class="class-badge">UZAKTAN LOJİSTİK YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'STRATEJİK TEDARİK ZİNCİRİ YÖNETİMİ', teacher:'PROF. DR. HALUK SOYUER', room:'-', day:'CUMA', hour:'18.30-21.15', classInfo:'UZAKTAN LOJİSTİK YÖNETİMİ İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'ZORUNLU'})">➕ Takvime Ekle</button>
                     </div>
                     
                     <div class="lesson-card" data-teacher="PROF. DR. MURAT KOCAMAZ" data-day="CUMA" data-status="SEÇMELİ" data-sinif="İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS">
@@ -1457,6 +1637,7 @@
                         👨‍🏫 <span class="teacher-name">PROF. DR. MURAT KOCAMAZ</span><br>
                         <span class="durum-info">📄 SEÇMELİ</span>
                         <span class="class-badge">İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS</span>
+                        <button class="btn-single-add" onclick="addSingleToGoogle({title:'TEKNOLOJI VE İNOVASYON YÖNETIMI', teacher:'PROF. DR. MURAT KOCAMAZ', room:'D103', day:'CUMA', hour:'18.30-21.15', classInfo:'İŞLETME İ.Ö. TEZSİZ YÜKSEK LİSANS', status:'SEÇMELİ'})">➕ Takvime Ekle</button>
                     </div>
                     </td></tr>
                 </tbody>
@@ -1484,6 +1665,50 @@
 
                     row.style.display = showRow ? "" : "none";
                 });
+            }
+
+            const gunMap = {'PAZARTESI':'20260209','SALI':'20260210','ÇARŞAMBA':'20260211','PERŞEMBE':'20260212','CUMA':'20260213','CUMARTESI':'20260214','PAZAR':'20260215'};
+
+            function addSingleToGoogle(d) {
+                let h = d.hour.split('-')[0].trim().replace(":","");
+                if(h.length === 3) h = "0" + h;
+                const start = gunMap[d.day] + "T" + h + "00";
+                const end = gunMap[d.day] + "T" + (parseInt(h.substring(0,2))+1).toString().padStart(2, '0') + h.substring(2) + "00";
+                const fullTitle = d.title + " [" + d.classInfo + "]";
+                const details = `Öğretim Görevlisi: ${d.teacher}\nSınıf: ${d.classInfo}\nDurum: ${d.status}`;
+                const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(fullTitle)}&details=${encodeURIComponent(details)}&location=${encodeURIComponent(d.room)}&dates=${start}/${end}&recur=RRULE:FREQ=WEEKLY;UNTIL=20260615T235959Z`;
+                window.open(url, '_blank');
+            }
+
+            function downloadICS() {
+                const visible = Array.from(document.querySelectorAll(".lesson-card")).filter(c => c.style.display !== "none");
+                if(visible.length === 0){ alert("⚠️ Önce filtreleme yapın."); return; }
+
+                let ics = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Ege//TR\nCALSCALE:GREGORIAN\nMETHOD:PUBLISH\n";
+                visible.forEach(card => {
+                    const title = card.querySelector(".lesson-name").innerText;
+                    const hoca = card.dataset.teacher;
+                    const classInfo = card.dataset.sinif;
+                    const status = card.dataset.status;
+                    const room = card.dataset.room;
+                    const day = card.dataset.day;
+                    let h = card.dataset.hour.split('-')[0].trim().replace(":","");
+                    if(h.length === 3) h = "0" + h;
+                    ics += "BEGIN:VEVENT\n";
+                    ics += `SUMMARY:${title} [${classInfo}]\n`;
+                    ics += `LOCATION:${room}\n`;
+                    ics += `DESCRIPTION:Öğretim Görevlisi: ${hoca}\nSınıf: ${classInfo}\nDurum: ${status}\n`;
+                    ics += `DTSTART:${gunMap[day]}T${h}00\n`;
+                    ics += `DTEND:${gunMap[day]}T${(parseInt(h.substring(0,2))+1).toString().padStart(2,'0')}${h.substring(2)}00\n`;
+                    ics += "RRULE:FREQ=WEEKLY;UNTIL=20260615T235959Z\n";
+                    ics += "END:VEVENT\n";
+                });
+                ics += "END:VCALENDAR";
+                const blob = new Blob([ics.replace(/\\n/g, "\n")], { type: 'text/calendar;charset=utf-8' });
+                const a = document.createElement("a");
+                a.href = window.URL.createObjectURL(blob);
+                a.download = "ders_programi.ics";
+                a.click();
             }
         </script>
         </body>
