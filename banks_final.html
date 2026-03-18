@@ -1,0 +1,854 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Banks</title>
+<style>
+body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
+table { border-collapse: collapse; width: 100%; background: white; }
+th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+th { background-color: #4CAF50; color: white; cursor: pointer; }
+tr:nth-child(even) { background-color: #f2f2f2; }
+tr:hover { background-color: #ddd; }
+a { color: #1a73e8; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.sort-icon {
+    font-size: 18px;
+    margin-left: 5px;
+    opacity: 0.7;
+    vertical-align: middle;
+}
+</style>
+
+<script>
+let sortDirection = {};
+
+function sortTable(colIndex) {
+    const table = document.getElementById("bankTable");
+    const tbody = table.tBodies[0];
+    const rows = Array.from(tbody.rows);
+
+    sortDirection[colIndex] = !sortDirection[colIndex];
+
+    rows.sort((a, b) => {
+        let A = a.cells[colIndex].innerText.toLowerCase();
+        let B = b.cells[colIndex].innerText.toLowerCase();
+
+        if (!isNaN(A) && !isNaN(B)) {
+            return sortDirection[colIndex] ? A - B : B - A;
+        }
+
+        return sortDirection[colIndex]
+            ? A.localeCompare(B)
+            : B.localeCompare(A);
+    });
+
+    rows.forEach(row => tbody.appendChild(row));
+}
+</script>
+</head>
+<body>
+<h1 style="font-size:48px;">Bank Directory</h1>
+<h2>Global Banks</h2>
+
+<table id="bankTable">
+  <thead>
+    <tr>
+      <th onclick="sortTable(0)">LEI <span class="sort-icon">⇅</span></th>
+      <th onclick="sortTable(1)">Bank Name <span class="sort-icon">⇅</span></th>
+      <th onclick="sortTable(2)">Country <span class="sort-icon">⇅</span></th>
+      <th>2024 Annual Report</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1CZBys5BOnEagKKgqb0x9oH8xM9p2mELG/view?usp=drive_link" target="_blank">0W2PZJM8XOY22M4GG883</a></td>
+      <td>DekaBank Deutsche Girozentrale</td>
+      <td>Germany</td>
+      <td><a href="https://drive.google.com/file/d/1CZBys5BOnEagKKgqb0x9oH8xM9p2mELG/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1GlTPP78PaKlsgc0-_398fGSDURZdmb2a/view?usp=drive_link" target="_blank">2G5BKIC2CB69PRJH1W31</a></td>
+      <td>Barclays Bank</td>
+      <td>Ireland</td>
+      <td><a href="https://drive.google.com/file/d/1GlTPP78PaKlsgc0-_398fGSDURZdmb2a/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1JZ9ZVle9rTHMydYdNVm0U4N7X2p2khbC/view?usp=drive_link" target="_blank">2W8N8UU78PMDQKZENC08</a></td>
+      <td>Intesa Sanpaolo S.p.A.</td>
+      <td>Italy</td>
+      <td><a href="https://drive.google.com/file/d/1JZ9ZVle9rTHMydYdNVm0U4N7X2p2khbC/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1NQHHv23E6kiUj1HlVOPDUr4NolibcuEJ/view?usp=drive_link" target="_blank">5UMCZOEYKCVFAW8ZLO05</a></td>
+      <td>National Bank of Greece</td>
+      <td>Greece</td>
+      <td><a href="https://drive.google.com/file/d/1NQHHv23E6kiUj1HlVOPDUr4NolibcuEJ/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1WHN1AsO_5P3sDyeLJktHDxeTfwQWYrVj/view?usp=drive_link" target="_blank">6TJCK1B7E7UTXP528Y04</a></td>
+      <td>Citigroup Global Markets Europe AG</td>
+      <td>Germany</td>
+      <td><a href="https://drive.google.com/file/d/1WHN1AsO_5P3sDyeLJktHDxeTfwQWYrVj/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1aSiWey8oNji8KwSE-_3OtjYXi59pnZZV/view?usp=drive_link" target="_blank">7CUNS533WID6K7DGFI87</a></td>
+      <td>CaixaBank, S.A.</td>
+      <td>Spain</td>
+      <td><a href="https://drive.google.com/file/d/1aSiWey8oNji8KwSE-_3OtjYXi59pnZZV/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1elP-EeiNKdVx8fs74LfSWzPtEnwY_4sG/view?usp=drive_link" target="_blank">7LTWFZYICNSX8D621K86</a></td>
+      <td>Deutsche Bank AG</td>
+      <td>Germany</td>
+      <td><a href="https://drive.google.com/file/d/1elP-EeiNKdVx8fs74LfSWzPtEnwY_4sG/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1SqYs5Fz_HMJYFPABbZgETjXG37dpTDvf/view?usp=drive_link" target="_blank">7LVZJ6XRIE7VNZ4UBX81</a></td>
+      <td>Banca Mediolanum S.p.A.</td>
+      <td>Italy</td>
+      <td><a href="https://drive.google.com/file/d/1SqYs5Fz_HMJYFPABbZgETjXG37dpTDvf/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/15Ri9Vc2d2sKXsdpXZGtC90_yzjjba6QZ/view?usp=drive_link" target="_blank">8IBZUGJ7JPLH368JE346</a></td>
+      <td>Goldman Sachs Bank Europe SE</td>
+      <td>Germany</td>
+      <td><a href="https://drive.google.com/file/d/15Ri9Vc2d2sKXsdpXZGtC90_yzjjba6QZ/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1har6Dvg5JFVnwn1Q7lXRcRryq72VjU5S/view?usp=drive_link" target="_blank">9CZ7TVMR36CYD5TZBS50</a></td>
+      <td>Banque Internationale à</td>
+      <td>Luxembourg</td>
+      <td><a href="https://drive.google.com/file/d/1har6Dvg5JFVnwn1Q7lXRcRryq72VjU5S/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1yQh62LbZkiFEhJI3npOBFkHT15Uyk9zY/view?usp=drive_link" target="_blank">9ZHRYM6F437SQJ6OUG95</a></td>
+      <td>Raiffeisen Bank International AG</td>
+      <td>Austria</td>
+      <td><a href="https://drive.google.com/file/d/1yQh62LbZkiFEhJI3npOBFkHT15Uyk9zY/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1-J82k32LkxrN9xEiggK-090WhdXZkRW5/view?usp=drive_link" target="_blank">851WYGNLUQLFZBSYGB56</a></td>
+      <td>COMMERZBANK Aktiengesellschaft</td>
+      <td>Germany</td>
+      <td><a href="https://drive.google.com/file/d/1-J82k32LkxrN9xEiggK-090WhdXZkRW5/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1R33QzuiUBxqH5ua4NasONzGb-bOrlHcX/view?usp=drive_link" target="_blank">213800DBQIB6VBNU5C64</a></td>
+      <td>ALPHA BANK S.A.</td>
+      <td>Greece</td>
+      <td><a href="https://drive.google.com/file/d/1R33QzuiUBxqH5ua4NasONzGb-bOrlHcX/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1QasTEzmgljxTjOgWht2bLfADJe5LX0iv/view?usp=drive_link" target="_blank">213800HDJ876ACJXXD05</a></td>
+      <td>AikGroup (CY) Limited</td>
+      <td>Cyprus</td>
+      <td><a href="https://drive.google.com/file/d/1QasTEzmgljxTjOgWht2bLfADJe5LX0iv/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1kVFBFVC0wAxCHsYQ6j7e4P_hODjnrLQg/view?usp=drive_link" target="_blank">213800OYHR1MPQ5VJL60</a></td>
+      <td>Piraeus Bank S.A.</td>
+      <td>Greece</td>
+      <td><a href="https://drive.google.com/file/d/1kVFBFVC0wAxCHsYQ6j7e4P_hODjnrLQg/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/15YmSM13r_tVLxCTafwFkHDg19zcm2wsa/view?usp=drive_link" target="_blank">213800RZWHE5EUX9R444</a></td>
+      <td>Luminor Holding AS</td>
+      <td>Estonia</td>
+      <td><a href="https://drive.google.com/file/d/15YmSM13r_tVLxCTafwFkHDg19zcm2wsa/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1FwXcmO1F-IKW9pKLQWhbt8FHTh7E4mw6/view?usp=drive_link" target="_blank">213800TC9PZRBHMJW403</a></td>
+      <td>MDB Group Limited</td>
+      <td>Malta</td>
+      <td><a href="https://drive.google.com/file/d/1FwXcmO1F-IKW9pKLQWhbt8FHTh7E4mw6/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/12ypbePKFsbJ6HimEUvqy95FY_E4xBUPC/view?usp=drive_link" target="_blank">213800X3Q9LSAKRUWY91</a></td>
+      <td>KBC Group NV</td>
+      <td>Belgium</td>
+      <td><a href="https://drive.google.com/file/d/12ypbePKFsbJ6HimEUvqy95FY_E4xBUPC/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1tO0Co3s2-x1CQ-IsW2IVPLJaRLOH4xbO/view?usp=drive_link" target="_blank">222100K6QL2V4MLHWQ08</a></td>
+      <td>LSF Nani Investments S.à.r.l.</td>
+      <td>Luxembourg</td>
+      <td><a href="https://drive.google.com/file/d/1tO0Co3s2-x1CQ-IsW2IVPLJaRLOH4xbO/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1NTrNGy1_MAUFJ8obC-kcuHa3rJXHbcSr/view?usp=drive_link" target="_blank">254900RNFMDM0P11YR84</a></td>
+      <td>AG Atlantic Lux HoldCo S.à r.l.</td>
+      <td>Luxembourg</td>
+      <td><a href="https://drive.google.com/file/d/1NTrNGy1_MAUFJ8obC-kcuHa3rJXHbcSr/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1rRoO9GSg7Lo3Sv9KkrGXDGJKmBNFRxfD/view?usp=drive_link" target="_blank">391200EEGLNXBBCVKC73</a></td>
+      <td>Erwerbsgesellschaft der S-Finanzgruppe mbH & Co. KG</td>
+      <td>Germany</td>
+      <td><a href="https://drive.google.com/file/d/1rRoO9GSg7Lo3Sv9KkrGXDGJKmBNFRxfD/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1dlI6p0QTzaKV48a7QmKQUKbAGCIoMSQn/view?usp=drive_link" target="_blank">485100FX5Y9YLAQLNP12</a></td>
+      <td>Revolut Holdings Europe UAB</td>
+      <td>Lithuania</td>
+      <td><a href="https://drive.google.com/file/d/1dlI6p0QTzaKV48a7QmKQUKbAGCIoMSQn/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1JKDukHylF_lbHMG8-tGcdWEKvKG98WVX/view?usp=drive_link" target="_blank">529900D4CD6DIB3CI904</a></td>
+      <td>Volksbank Wien AG</td>
+      <td>Austria</td>
+      <td><a href="https://drive.google.com/file/d/1JKDukHylF_lbHMG8-tGcdWEKvKG98WVX/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1uvD1FS-nhqywfP7RiL5yvIWHhnm5JJdd/view?usp=drive_link" target="_blank">529900FU4WJ2XT7BVE31</a></td>
+      <td>LBS Landesbausparkasse Süd</td>
+      <td>Germany</td>
+      <td><a href="https://drive.google.com/file/d/1uvD1FS-nhqywfP7RiL5yvIWHhnm5JJdd/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/13zLGZefvDV_gh-JGE6huoLrhVJsVa8Iz/view?usp=drive_link" target="_blank">529900GEH0DAUTAXUA94</a></td>
+      <td>DSK Bank AD</td>
+      <td>Bulgaria</td>
+      <td><a href="https://drive.google.com/file/d/13zLGZefvDV_gh-JGE6huoLrhVJsVa8Iz/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1XbeP899Ycbro3vJKoBKinRjmE-jaAisB/view?usp=drive_link" target="_blank">529900GGYMNGRQTDOO93</a></td>
+      <td>BNG Bank N.V.</td>
+      <td>Netherlands</td>
+      <td><a href="https://drive.google.com/file/d/1XbeP899Ycbro3vJKoBKinRjmE-jaAisB/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1oXJtGT4gtQ8maI3QEy7KIPUkTuHL880g/view?usp=drive_link" target="_blank">529900GM944JT8YIRL63</a></td>
+      <td>Münchener Hypothekenbank eG</td>
+      <td>Germany</td>
+      <td><a href="https://drive.google.com/file/d/1oXJtGT4gtQ8maI3QEy7KIPUkTuHL880g/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1U_1ZD8UaD2DphgSt5cQgzCmt4Hzmx2lN/view?usp=drive_link" target="_blank">529900HEKOENJHPNN480</a></td>
+      <td>Kuntarahoitus Oyj</td>
+      <td>Finland</td>
+      <td><a href="https://drive.google.com/file/d/1U_1ZD8UaD2DphgSt5cQgzCmt4Hzmx2lN/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1Dhhjp6t_qpqHdqMvaIvIzVrBxa7GJ8Hg/view?usp=drive_link" target="_blank">529900HNOAA1KXQJUQ27</a></td>
+      <td>DZ BANK AG Deutsche Zentral-Genossenschaftsbank</td>
+      <td>Germany</td>
+      <td><a href="https://drive.google.com/file/d/1Dhhjp6t_qpqHdqMvaIvIzVrBxa7GJ8Hg/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1ILw7yvk4qh5aj2Y8GTIevzWZ4pP5NGOx/view?usp=drive_link" target="_blank">529900JG015JC10LED24</a></td>
+      <td>AS LHV Group</td>
+      <td>Estonia</td>
+      <td><a href="https://drive.google.com/file/d/1ILw7yvk4qh5aj2Y8GTIevzWZ4pP5NGOx/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1auQubCgXA8w5qtm9XNBPZacCyeCnUFCA/view?usp=drive_link" target="_blank">529900JZTYE3W7WQH904</a></td>
+      <td>HASPA Finanzholding</td>
+      <td>Germany</td>
+      <td><a href="https://drive.google.com/file/d/1auQubCgXA8w5qtm9XNBPZacCyeCnUFCA/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1r5qKhgcAa_6UT19ePjNhtWZQEfocpHDL/view?usp=drive_link" target="_blank">529900ODI3047E2LIV03</a></td>
+      <td>Nordea Bank Abp</td>
+      <td>Finland</td>
+      <td><a href="https://drive.google.com/file/d/1r5qKhgcAa_6UT19ePjNhtWZQEfocpHDL/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1QwR3uuteXO1o9-Rq49RBkOS9v5XePi0N/view?usp=drive_link" target="_blank">529900RWC8ZYB066JF16</a></td>
+      <td>Bank of Valletta plc</td>
+      <td>Malta</td>
+      <td><a href="https://drive.google.com/file/d/1QwR3uuteXO1o9-Rq49RBkOS9v5XePi0N/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1_HSQPWgsmtBNEZ7DMsFGomKZirkldfWw/view?usp=drive_link" target="_blank">529900S1KHKOEQL5CK20</a></td>
+      <td>Wüstenrot Bausparkasse Aktiengesellschaft</td>
+      <td>Germany</td>
+      <td><a href="https://drive.google.com/file/d/1_HSQPWgsmtBNEZ7DMsFGomKZirkldfWw/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1_irPI366S3u5QxXCamsf2OV42OgaGlXt/view?usp=drive_link" target="_blank">529900S9YO2JHTIIDG38</a></td>
+      <td>BAWAG Group AG</td>
+      <td>Austria</td>
+      <td><a href="https://drive.google.com/file/d/1_irPI366S3u5QxXCamsf2OV42OgaGlXt/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1Cum66OjfsUpa4tu813mgkJQ5I1H2Ai2n/view?usp=drive_link" target="_blank">529900SSGT49ZZSWYE62</a></td>
+      <td>Volkswagen Financial Services AG</td>
+      <td>Germany</td>
+      <td><a href="https://drive.google.com/file/d/1Cum66OjfsUpa4tu813mgkJQ5I1H2Ai2n/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1SWYyE-21Qy0cevW-snNYcAGsgSEw-fb1/view?usp=drive_link" target="_blank">529900SXEWPJ1MRRX537</a></td>
+      <td>RAIFFEISEN-HOLDING NIEDERÖSTERREICH-WIEN registrierte Genossenschaft mit beschränkter Haftung</td>
+      <td>Austria</td>
+      <td><a href="https://drive.google.com/file/d/1SWYyE-21Qy0cevW-snNYcAGsgSEw-fb1/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1UiiI_h-be3BlSOYndhtvQd1r3oWDtbLe/view?usp=drive_link" target="_blank">529900UKZBMDBDZIXD62</a></td>
+      <td>Addiko Bank AG</td>
+      <td>Austria</td>
+      <td><a href="https://drive.google.com/file/d/1UiiI_h-be3BlSOYndhtvQd1r3oWDtbLe/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1hMeMoF7zgVNNDiPeWlRnOC41cej1H2Od/view?usp=drive_link" target="_blank">529900V3O1M5IHMOSF46</a></td>
+      <td>International GmbH State Street Europe Holdings</td>
+      <td>Germany</td>
+      <td><a href="https://drive.google.com/file/d/1hMeMoF7zgVNNDiPeWlRnOC41cej1H2Od/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1GZoxnglquqS1PtzvAXFCc5I2PjmuLxA2/view?usp=drive_link" target="_blank">529900XSTAE561178282</a></td>
+      <td>Raiffeisenbankengruppe OÖ Verbund eGen</td>
+      <td>Austria</td>
+      <td><a href="https://drive.google.com/file/d/1GZoxnglquqS1PtzvAXFCc5I2PjmuLxA2/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1D5PmKMy-QFJHjyldx473aX4Rt2OrpiEZ/view?usp=drive_link" target="_blank">549300DYPOFMXOR7XM56</a></td>
+      <td>Crelan SA ; Crelan NV</td>
+      <td>Belgium</td>
+      <td><a href="https://drive.google.com/file/d/1D5PmKMy-QFJHjyldx473aX4Rt2OrpiEZ/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/17mnQDWiWrnu6laxf-fNKDWRwdvmYvgkJ/view?usp=drive_link" target="_blank">549300FH0WJAPEHTIQ77</a></td>
+      <td>BofA Securities Europe SA</td>
+      <td>France</td>
+      <td><a href="https://drive.google.com/file/d/17mnQDWiWrnu6laxf-fNKDWRwdvmYvgkJ/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1lywx2ANda5dsmn1u-7vKvWG2H1E32yaR/view?usp=drive_link" target="_blank">549300HFEHJOXGE4ZE63</a></td>
+      <td>SFIL S.A.</td>
+      <td>France</td>
+      <td><a href="https://drive.google.com/file/d/1lywx2ANda5dsmn1u-7vKvWG2H1E32yaR/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1kv6qq5b3l-749zbRWfRSO-_dSw1gflHu/view?usp=drive_link" target="_blank">549300L7YCATGO57ZE10</a></td>
+      <td>FinecoBank S.p.A.</td>
+      <td>Italy</td>
+      <td><a href="https://drive.google.com/file/d/1kv6qq5b3l-749zbRWfRSO-_dSw1gflHu/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1PTRVbb2czc7YHoJDQf-XBtFj6Q0nlB7n/view?usp=drive_link" target="_blank">549300ND1MQ8SNNYMJ22</a></td>
+      <td>AS SEB Pank</td>
+      <td>Estonia</td>
+      <td><a href="https://drive.google.com/file/d/1PTRVbb2czc7YHoJDQf-XBtFj6Q0nlB7n/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1xtdo7VCA6wf2w8-QENoedxdRqUJSW-KV/view?usp=drive_link" target="_blank">549300NYKK9MWM7GGW15</a></td>
+      <td>ING Groep N.V.</td>
+      <td>Netherlands</td>
+      <td><a href="https://drive.google.com/file/d/1xtdo7VCA6wf2w8-QENoedxdRqUJSW-KV/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1-ptgFzGrblXBxwt5V8R7X9gK6Lhw42BC/view?usp=drive_link" target="_blank">549300OLBL49CW8CT155</a></td>
+      <td>Ibercaja Banco, S.A.</td>
+      <td>Spain</td>
+      <td><a href="https://drive.google.com/file/d/1-ptgFzGrblXBxwt5V8R7X9gK6Lhw42BC/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/11fDmrZbxRZHO6DqwynhabVf3WqlNua8D/view?usp=drive_link" target="_blank">549300SBPFE9JX7N8J82</a></td>
+      <td>AB SEB bankas</td>
+      <td>Lithuania</td>
+      <td><a href="https://drive.google.com/file/d/11fDmrZbxRZHO6DqwynhabVf3WqlNua8D/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/104KrXybHXgsCW8FTK9IJI3NU3Ip9Kugc/view?usp=drive_link" target="_blank">549300TK038P6EV4YU51</a></td>
+      <td>AB Artea bankas</td>
+      <td>Lithuania</td>
+      <td><a href="https://drive.google.com/file/d/104KrXybHXgsCW8FTK9IJI3NU3Ip9Kugc/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1G5za0gmza_RQMJ3pUDzUTWe8BLorVUUz/view?usp=drive_link" target="_blank">549300TRUWO2CD2G5692</a></td>
+      <td>UniCredit S.p.A.</td>
+      <td>Italy</td>
+      <td><a href="https://drive.google.com/file/d/1G5za0gmza_RQMJ3pUDzUTWe8BLorVUUz/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/11VwpxfU3bqyoi0NBe_TlUrrDO6saYOR3/view?usp=drive_link" target="_blank">549300U4LIZV0REEQQ46</a></td>
+      <td>Kutxabank, S.A.</td>
+      <td>Spain</td>
+      <td><a href="https://drive.google.com/file/d/11VwpxfU3bqyoi0NBe_TlUrrDO6saYOR3/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1-fOZp61Q2rgEGRyZqmR5fZr98-GBRsOr/view?usp=drive_link" target="_blank">549300UARE5MHTBUPJ19</a></td>
+      <td>Promontoria 19 5299008I0TO44SUINZ71Coöperatie U.A.</td>
+      <td>Netherlands</td>
+      <td><a href="https://drive.google.com/file/d/1-fOZp61Q2rgEGRyZqmR5fZr98-GBRsOr/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1eXKDlIgUelnN4pWirYBWzvj_20K8yUY6/view?usp=drive_link" target="_blank">549300YW95G1VBBGGV07</a></td>
+      <td>AS "SEB banka"</td>
+      <td>Latvia</td>
+      <td><a href="https://drive.google.com/file/d/1eXKDlIgUelnN4pWirYBWzvj_20K8yUY6/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1dKFyZa4Wa_EvzGT7aTjeS31v2k-WROoe/view?usp=drive_link" target="_blank">549300ZK53CNGEEI6A29</a></td>
+      <td>J.P. Morgan SE</td>
+      <td>Germany</td>
+      <td><a href="https://drive.google.com/file/d/1dKFyZa4Wa_EvzGT7aTjeS31v2k-WROoe/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1OPoBNDM2Pfjpq9VCj43_3pEz_351KGzL/view?usp=drive_link" target="_blank">635400AKJBGNS5WNQL34</a></td>
+      <td>AIB Group plc</td>
+      <td>Ireland</td>
+      <td><a href="https://drive.google.com/file/d/1OPoBNDM2Pfjpq9VCj43_3pEz_351KGzL/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1vLxSBiHL9Vt_ci8wuv-trlpyeeK0YeCj/view?usp=drive_link" target="_blank">635400C8EK6DRI12LJ39</a></td>
+      <td>Bank of Ireland</td>
+      <td>Ireland</td>
+      <td><a href="https://drive.google.com/file/d/1vLxSBiHL9Vt_ci8wuv-trlpyeeK0YeCj/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1xL6z0Ov9EQsnkUVy9WecHss-dUP0R1iT/view?usp=drive_link" target="_blank">635400L14KNHZXPUZM19</a></td>
+      <td>Bank of Cyprus Holdings Public Limited Company</td>
+      <td>Ireland</td>
+      <td><a href="https://drive.google.com/file/d/1xL6z0Ov9EQsnkUVy9WecHss-dUP0R1iT/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1Qpl0WwP8oykdkjRYn69me7z_rDOSFbLf/view?usp=drive_link" target="_blank">724500A1FNICHSDF2I11</a></td>
+      <td>ASN Bank N.V.</td>
+      <td>Netherlands</td>
+      <td><a href="https://drive.google.com/file/d/1Qpl0WwP8oykdkjRYn69me7z_rDOSFbLf/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1aDouKm2md0LBIrGon3F9OLgc_T8LQp8z/view?usp=drive_link" target="_blank">724500JIWG886A9RRT57</a></td>
+      <td>RBS Holdings N.V.</td>
+      <td>Netherlands</td>
+      <td><a href="https://drive.google.com/file/d/1aDouKm2md0LBIrGon3F9OLgc_T8LQp8z/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1BPvEiuZTZASqhOhXufDZWTQezHM8EHFW/view?usp=drive_link" target="_blank">815600AD83B2B6317788</a></td>
+      <td>Credito Emiliano Holding S.p.A.</td>
+      <td>Italy</td>
+      <td><a href="https://drive.google.com/file/d/1BPvEiuZTZASqhOhXufDZWTQezHM8EHFW/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1LR2ApsHoWv-LhjU1K-gSSlZ1VZVNwSWV/view?usp=drive_link" target="_blank">815600E4E6DCD2D25E30</a></td>
+      <td>Banco BPM S.p.A.</td>
+      <td>Italy</td>
+      <td><a href="https://drive.google.com/file/d/1LR2ApsHoWv-LhjU1K-gSSlZ1VZVNwSWV/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1aPXcvNGE6WsHJOg0c6mr4Tlti6xVgypY/view?usp=drive_link" target="_blank">894500M8C9DWGV7L2Q81</a></td>
+      <td>NatWest Bank Europe GmbH</td>
+      <td>Germany</td>
+      <td><a href="https://drive.google.com/file/d/1aPXcvNGE6WsHJOg0c6mr4Tlti6xVgypY/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1XY5u8HsCnfW02JtqtcDFg-VNFxHqgDtE/view?usp=drive_link" target="_blank">969500STN7T9MRUMJ267</a></td>
+      <td>Bpifrance</td>
+      <td>France</td>
+      <td><a href="https://drive.google.com/file/d/1XY5u8HsCnfW02JtqtcDFg-VNFxHqgDtE/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1OvxysEMBmb260oYCklqd5mOffbGYNScs/view?usp=drive_link" target="_blank">969500TJ5KRTCJQWXH05</a></td>
+      <td>Crédit Agricole S.A.</td>
+      <td>France</td>
+      <td><a href="https://drive.google.com/file/d/1OvxysEMBmb260oYCklqd5mOffbGYNScs/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1pD8kYj7Kp93pkVrbkt3ardj9gqvnx6p_/view?usp=drive_link" target="_blank">2138009Y59EAR7H1UO97</a></td>
+      <td>AS “Citadele banka”</td>
+      <td>Latvia</td>
+      <td><a href="https://drive.google.com/file/d/1pD8kYj7Kp93pkVrbkt3ardj9gqvnx6p_/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1DmzXvq5R37s_fsm6La1eKJNeiEAX53Sg/view?usp=drive_link" target="_blank">5299002GPCR602QYJC04</a></td>
+      <td>KfW Beteiligungsholding GmbH</td>
+      <td>Germany</td>
+      <td><a href="https://drive.google.com/file/d/1DmzXvq5R37s_fsm6La1eKJNeiEAX53Sg/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/18qPl_raTWMs1sBfquYt0lxwd-5idBZBo/view?usp=drive_link" target="_blank">5299007QVIQ7IO64NX37</a></td>
+      <td>UBS Europe SE</td>
+      <td>Germany</td>
+      <td><a href="https://drive.google.com/file/d/18qPl_raTWMs1sBfquYt0lxwd-5idBZBo/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/10AnZIfZuf4BdiPscfjX_p1GtnGu8cJVl/view?usp=drive_link" target="_blank">5299007S3UH5RKUYDA52</a></td>
+      <td>Deutsche Apotheker- und Ärztebank eG</td>
+      <td>Germany</td>
+      <td><a href="https://drive.google.com/file/d/10AnZIfZuf4BdiPscfjX_p1GtnGu8cJVl/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1wYa90UTMIsxpMo6vqjKWsz5jvgiGk4Ts/view?usp=drive_link" target="_blank">5299008I0TO44SUINZ71</a></td>
+      <td>Oldenburgische Landesbank Aktiengesellschaft</td>
+      <td>Germany</td>
+      <td><a href="https://drive.google.com/file/d/1wYa90UTMIsxpMo6vqjKWsz5jvgiGk4Ts/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/14rQiB-el9Ki908VKQ0WOF4tSjDE9mvRk/view?usp=drive_link" target="_blank">5493001BABFV7P27OW30</a></td>
+      <td>Nova Ljubljanska banka d.d., Ljubljana</td>
+      <td>Slovenia</td>
+      <td><a href="https://drive.google.com/file/d/14rQiB-el9Ki908VKQ0WOF4tSjDE9mvRk/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1UAW0Rb4KRivbfyb3LGzQQKRV3MMyImg4/view?usp=drive_link" target="_blank">5493006QMFDDMYWIAM13</a></td>
+      <td>Banco Santander, S.A.</td>
+      <td>Spain</td>
+      <td><a href="https://drive.google.com/file/d/1UAW0Rb4KRivbfyb3LGzQQKRV3MMyImg4/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/14FBqf3FI7V7dXayxf3NalRplH0IIn7c7/view?usp=drive_link" target="_blank">5493007SJLLCTM6J6M37</a></td>
+      <td>Unicaja Banco, S.A.</td>
+      <td>Spain</td>
+      <td><a href="https://drive.google.com/file/d/14FBqf3FI7V7dXayxf3NalRplH0IIn7c7/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1UYDW7p4i9xZrty8Z731WnAWRg8lLHHY_/view?usp=drive_link" target="_blank">5493008QOCP58OLEN998</a></td>
+      <td>Investeringsmaatschappij Argenta NV ; Société d'investissements Argenta SA ; Investierungsgesellschaft Argenta AG</td>
+      <td>Belgium</td>
+      <td><a href="https://drive.google.com/file/d/1UYDW7p4i9xZrty8Z731WnAWRg8lLHHY_/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1vPIlYOhrHSppYwbOIiXXfaxcpvDycNpL/view?usp=drive_link" target="_blank">7437003B5WFBOIEFY714</a></td>
+      <td>OP Osuuskunta</td>
+      <td>Finland</td>
+      <td><a href="https://drive.google.com/file/d/1vPIlYOhrHSppYwbOIiXXfaxcpvDycNpL/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1eqdRm9asNJwnnte6QHHuY2VDjJAgOtXQ/view?usp=drive_link" target="_blank">9695000CG7B84NLR5984</a></td>
+      <td>Confédération Nationale du Crédit Mutuel</td>
+      <td>France</td>
+      <td><a href="https://drive.google.com/file/d/1eqdRm9asNJwnnte6QHHuY2VDjJAgOtXQ/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1o0Ky5P2JsHnwxf4Haf1D8KMCYMKON3Wo/view?usp=drive_link" target="_blank">9695005MSX1OYEMGDF46</a></td>
+      <td>BPCE S.A.</td>
+      <td>France</td>
+      <td><a href="https://drive.google.com/file/d/1o0Ky5P2JsHnwxf4Haf1D8KMCYMKON3Wo/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1Di1B9B-mKKXoKIwpvHZiQc5TqjG4QZCt/view?usp=drive_link" target="_blank">9845006C7B5CC707X660</a></td>
+      <td>Swedbank Baltics AS</td>
+      <td>Latvia</td>
+      <td><a href="https://drive.google.com/file/d/1Di1B9B-mKKXoKIwpvHZiQc5TqjG4QZCt/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1CVJ5kROPtLufcKLLnyc9oQtdpVl7_ODu/view?usp=drive_link" target="_blank">22210058UCKT3BJTCN24</a></td>
+      <td>OTP Luxembourg S.à.r.l.</td>
+      <td>Luxembourg</td>
+      <td><a href="https://drive.google.com/file/d/1CVJ5kROPtLufcKLLnyc9oQtdpVl7_ODu/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1GN5f5z43CsoXn9TU2FQZRHKvTN9C5vt0/view?usp=drive_link" target="_blank">54930056FHWP7GIWYY08</a></td>
+      <td>Morgan Stanley Europe SE</td>
+      <td>Germany</td>
+      <td><a href="https://drive.google.com/file/d/1GN5f5z43CsoXn9TU2FQZRHKvTN9C5vt0/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1p8o1R8cUq_f-nu8GVr7-yL9la0_M9_hq/view?usp=drive_link" target="_blank">54930056IRBXK0Q1FP96</a></td>
+      <td>ABANCA Corporación Bancaria, S.A.</td>
+      <td>Spain</td>
+      <td><a href="https://drive.google.com/file/d/1p8o1R8cUq_f-nu8GVr7-yL9la0_M9_hq/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/15Tq1dIQl1h6xyGM3RHEsywYMc1PJUGX7/view?usp=drive_link" target="_blank">96950001WI712W7PQG45</a></td>
+      <td>RCI Banque SA</td>
+      <td>France</td>
+      <td><a href="https://drive.google.com/file/d/15Tq1dIQl1h6xyGM3RHEsywYMc1PJUGX7/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1gyoWwqnWO6ba2vmuYLOBQYe-nVVUiG5r/view?usp=drive_link" target="_blank">96950066U5XAAIRCPA78</a></td>
+      <td>La Banque Postale</td>
+      <td>France</td>
+      <td><a href="https://drive.google.com/file/d/1gyoWwqnWO6ba2vmuYLOBQYe-nVVUiG5r/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/10T2VBVl7D526qhwq9Q4R_yOyVgxdvL7p/view?usp=drive_link" target="_blank">95980020140005800000</a></td>
+      <td>Banco de Crédito Social Cooperativo, S.A.</td>
+      <td>Spain</td>
+      <td><a href="https://drive.google.com/file/d/10T2VBVl7D526qhwq9Q4R_yOyVgxdvL7p/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1n_lw8FWzpWcIgGtx6OfiQjSooGwGsr8V/view?usp=drive_link" target="_blank">A5GWLFH3KM7YV2SFQL84</a></td>
+      <td>Belfius Banque SA ; Belfius Bank NV ; Belfius Bank SA</td>
+      <td>Belgium</td>
+      <td><a href="https://drive.google.com/file/d/1n_lw8FWzpWcIgGtx6OfiQjSooGwGsr8V/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1kj2xFuAQQxIOd8VFT8MxBY3_Q7pUAcfD/view?usp=drive_link" target="_blank">B81CK4ESI35472RHJ606</a></td>
+      <td>Landesbank Baden-Württemberg</td>
+      <td>Germany</td>
+      <td><a href="https://drive.google.com/file/d/1kj2xFuAQQxIOd8VFT8MxBY3_Q7pUAcfD/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1zQR72cRY-45Mq8VSVHg_PWASIe5LUGb8/view?usp=drive_link" target="_blank">BFXS5XCH7N0Y05NIXW11</a></td>
+      <td>ABN AMRO Bank N.V.</td>
+      <td>Netherlands</td>
+      <td><a href="https://drive.google.com/file/d/1zQR72cRY-45Mq8VSVHg_PWASIe5LUGb8/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1dHdm8gG5n1yzRkBkEVH30VyBDR5Svh3q/view?usp=drive_link" target="_blank">DG3RU1DBUFHT4ZF9WN62</a></td>
+      <td>Coöperatieve Rabobank U.A.</td>
+      <td>Netherlands</td>
+      <td><a href="https://drive.google.com/file/d/1dHdm8gG5n1yzRkBkEVH30VyBDR5Svh3q/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1yqRkSC8GUt3sbDfYkox3P0kX8_wKxX6T/view?usp=drive_link" target="_blank">DIZES5CFO5K3I5R58746</a></td>
+      <td>Landesbank Hessen-Thüringen Girozentrale</td>
+      <td>Germany</td>
+      <td><a href="https://drive.google.com/file/d/1yqRkSC8GUt3sbDfYkox3P0kX8_wKxX6T/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1GOou6T0FMpFag5OFZWqKAFQQzwTAwLdZ/view?usp=drive_link" target="_blank">DSNHHQ2B9X5N6OUJ1236</a></td>
+      <td>Norddeutsche Landesbank -Girozentrale-</td>
+      <td>Germany</td>
+      <td><a href="https://drive.google.com/file/d/1GOou6T0FMpFag5OFZWqKAFQQzwTAwLdZ/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1O2g3fuiIOUGGawBFR7qZQy3F3JYh0iXA/view?usp=drive_link" target="_blank">DZZ47B9A52ZJ6LT6VV95</a></td>
+      <td>Deutsche Pfandbriefbank AG</td>
+      <td>Germany</td>
+      <td><a href="https://drive.google.com/file/d/1O2g3fuiIOUGGawBFR7qZQy3F3JYh0iXA/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1LhqQgJRJCdG4drwlmdto7XOrKxgxGraw/view?usp=drive_link" target="_blank">EQYXK86SF381Q21S3020</a></td>
+      <td>Bank of America Europe Designated Activity Company</td>
+      <td>Ireland</td>
+      <td><a href="https://drive.google.com/file/d/1LhqQgJRJCdG4drwlmdto7XOrKxgxGraw/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1-HNhtNspRnoVb4lhtM4Jf8Ot87KA25Lr/view?usp=drive_link" target="_blank">F0HUI1NY1AZMJMD8LP67</a></td>
+      <td>HSBC Continental Europe</td>
+      <td>France</td>
+      <td><a href="https://drive.google.com/file/d/1-HNhtNspRnoVb4lhtM4Jf8Ot87KA25Lr/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1JLX-_uwGGtIfPsdsD4CG5xOVGnfknM7F/view?usp=drive_link" target="_blank">FI10786932</a></td>
+      <td>Danske Bank A/S,</td>
+      <td>Finland</td>
+      <td><a href="https://drive.google.com/file/d/1JLX-_uwGGtIfPsdsD4CG5xOVGnfknM7F/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1QXyOe-Tj2gPLb8Otxzu9_oFzerAHmXyG/view?usp=drive_link" target="_blank">J4CP7MHCXR8DAQMKIL78</a></td>
+      <td>BANCA MONTE DEI PASCHI DI SIENA S.p.A.</td>
+      <td>Italy</td>
+      <td><a href="https://drive.google.com/file/d/1QXyOe-Tj2gPLb8Otxzu9_oFzerAHmXyG/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/16dA1cy79AD8NXVqN4CfCorO53nOgpmHO/view?usp=drive_link" target="_blank">JEUVK5RWVJEN8W0C9M24</a></td>
+      <td>Eurobank Ergasias Services and Holdings S.A.</td>
+      <td>Greece</td>
+      <td><a href="https://drive.google.com/file/d/16dA1cy79AD8NXVqN4CfCorO53nOgpmHO/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/16Qrrybn6Q-7seZZZy7LMKrYqw9AwieaU/view?usp=drive_link" target="_blank">JLP5FSPH9WPSHY3NIM24</a></td>
+      <td>Nederlandse Waterschapsbank N.V.</td>
+      <td>Netherlands</td>
+      <td><a href="https://drive.google.com/file/d/16Qrrybn6Q-7seZZZy7LMKrYqw9AwieaU/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1SLLlpU83-8aXwHmqHj_nFtBde-beoZyn/view?usp=drive_link" target="_blank">JU1U6S0DG9YLT7N8ZV32</a></td>
+      <td>Banco Comercial Português, S.A.</td>
+      <td>Portugal</td>
+      <td><a href="https://drive.google.com/file/d/1SLLlpU83-8aXwHmqHj_nFtBde-beoZyn/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1FgqvTkcKEO1v3eq3Ehlj--oM574P0NQH/view?usp=drive_link" target="_blank">K8MS7FD7N5Z2WQ51AZ71</a></td>
+      <td>Banco Bilbao Vizcaya Argentaria, S.A.</td>
+      <td>Spain</td>
+      <td><a href="https://drive.google.com/file/d/1FgqvTkcKEO1v3eq3Ehlj--oM574P0NQH/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1HNl02axvDfJyAF5FI6ArKbX1kYtTZNPO/view?usp=drive_link" target="_blank">LOO0AWXR8GF142JCO404</a></td>
+      <td>Cassa Centrale Banca - Credito Cooperativo Italiano S.p.A.</td>
+      <td>Italy</td>
+      <td><a href="https://drive.google.com/file/d/1HNl02axvDfJyAF5FI6ArKbX1kYtTZNPO/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/17gSBZGMNEVliGeuWxFgOOcGRhlDXQW84/view?usp=drive_link" target="_blank">MMYX0N4ZEZ13Z4XCG897</a></td>
+      <td>The Bank of New York Mellon SANV</td>
+      <td>Belgium</td>
+      <td><a href="https://drive.google.com/file/d/17gSBZGMNEVliGeuWxFgOOcGRhlDXQW84/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1946hpevgds-F3wq_b0OimZ9IVLyYSyrH/view?usp=drive_link" target="_blank">N1FBEDJ5J41VKZLO2475</a></td>
+      <td>Citibank Europe plc</td>
+      <td>Ireland</td>
+      <td><a href="https://drive.google.com/file/d/1946hpevgds-F3wq_b0OimZ9IVLyYSyrH/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1elvv7pG_M8u9lb1oCcQocd6_K5ez46AT/view?usp=drive_link" target="_blank">N747OI7JINV7RUUH6190</a></td>
+      <td>BPER Banca S.p.A.</td>
+      <td>Italy</td>
+      <td><a href="https://drive.google.com/file/d/1elvv7pG_M8u9lb1oCcQocd6_K5ez46AT/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1si_y58mkiyXGedaY-LosdGJBrjr00mor/view?usp=drive_link" target="_blank">NNVPP80YIZGEY2314M97</a></td>
+      <td>ICCREA Banca S.p.A. - Istituto Centrale del Credito Cooperativo</td>
+      <td>Italy</td>
+      <td><a href="https://drive.google.com/file/d/1si_y58mkiyXGedaY-LosdGJBrjr00mor/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1NwWvNWt4e7tQ2q-7LMzrQKUSG6-FUZes/view?usp=drive_link" target="_blank">O2RNE8IBXP4R0TD8PU41</a></td>
+      <td>Société Générale S.A.</td>
+      <td>France</td>
+      <td><a href="https://drive.google.com/file/d/1NwWvNWt4e7tQ2q-7LMzrQKUSG6-FUZes/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1-_UJnX5YL1-9TUu1TqRsk8_g4TbgtM1q/view?usp=drive_link" target="_blank">PQOH26KWDF7CG10L6792</a></td>
+      <td>Erste Group Bank AG</td>
+      <td>Austria</td>
+      <td><a href="https://drive.google.com/file/d/1-_UJnX5YL1-9TUu1TqRsk8_g4TbgtM1q/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1x_M-f-RSvrz9JDtjU7_PgBvVuaZ76DP2/view?usp=drive_link" target="_blank">R0MUWSFPU8MPRO8K5P83</a></td>
+      <td>BNP Paribas S.A.</td>
+      <td>France</td>
+      <td><a href="https://drive.google.com/file/d/1x_M-f-RSvrz9JDtjU7_PgBvVuaZ76DP2/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1njeLfN_yOkHhSF4jGqbReWdCRfJR4y08/view?usp=drive_link" target="_blank">R7CQUF1DQM73HUTV1078</a></td>
+      <td>Banque et Caisse d’Epargne de l’Etat, Luxembourg</td>
+      <td>Luxembourg</td>
+      <td><a href="https://drive.google.com/file/d/1njeLfN_yOkHhSF4jGqbReWdCRfJR4y08/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1jfNrIiXLuRFJ6qkR2FwwWZjoYoZIYtgn/view?usp=drive_link" target="_blank">SI5RG2M0WQQLZCXKRM20</a></td>
+      <td>Banco de Sabadell, S.A.</td>
+      <td>Spain</td>
+      <td><a href="https://drive.google.com/file/d/1jfNrIiXLuRFJ6qkR2FwwWZjoYoZIYtgn/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1cgANLpOfUB08aYhtD5IGq-ncQhj6dfs1/view?usp=drive_link" target="_blank">TO822O0VT80V06K0FH57</a></td>
+      <td>Caixa Geral de Depósitos, S.A.</td>
+      <td>Portugal</td>
+      <td><a href="https://drive.google.com/file/d/1cgANLpOfUB08aYhtD5IGq-ncQhj6dfs1/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1jpohudQRtr2ErlRk6h5oFW_W2MGFT5It/view?usp=drive_link" target="_blank">TUKDD90GPC79G1KOE162</a></td>
+      <td>Hamburg Commercial Bank AG</td>
+      <td>Germany</td>
+      <td><a href="https://drive.google.com/file/d/1jpohudQRtr2ErlRk6h5oFW_W2MGFT5It/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1AssbWiE5GUMyhPSNDV4SBOarPcjTS01J/view?usp=drive_link" target="_blank">VDYMYTQGZZ6DU0912C88</a></td>
+      <td>Bayerische Landesbank</td>
+      <td>Germany</td>
+      <td><a href="https://drive.google.com/file/d/1AssbWiE5GUMyhPSNDV4SBOarPcjTS01J/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+    <tr>
+      <td><a href="https://drive.google.com/file/d/1QhOsTjnwDJcsVR0e-ARs56zpx6GQlCWI/view?usp=drive_link" target="_blank">VWMYAEQSTOPNV0SUGU82</a></td>
+      <td>Bankinter, S.A.</td>
+      <td>Spain</td>
+      <td><a href="https://drive.google.com/file/d/1QhOsTjnwDJcsVR0e-ARs56zpx6GQlCWI/view?usp=drive_link" target="_blank">Open Report</a></td>
+    </tr>
+    
+  </tbody>
+</table>
+</body>
+</html>
